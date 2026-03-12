@@ -8,7 +8,7 @@
 }
 
 #exitButton {
-    -fx-background-color: WHITE ;
+    -fx-background-color: transparent ;
 }
 
 #exitButton:hover{
