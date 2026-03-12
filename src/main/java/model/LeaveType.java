@@ -16,14 +16,12 @@ public class LeaveType {
         this.maxDays = maxDays;
     }
 
-    public LeaveType createLeaveType() {
-        return this;
+    public void createLeaveType() {
+        normalizeData();
     }
 
     public void updateLeaveType() {
-        this.name = name;
-        this.description = description;
-        this.maxDays = maxDays;
+        normalizeData();
     }
 
     public Long getId() {
@@ -56,6 +54,18 @@ public class LeaveType {
 
     public void setMaxDays(int maxDays) {
         this.maxDays = maxDays;
+    }
+
+    private void normalizeData() {
+        if (name != null) {
+            name = name.trim();
+        }
+        if (description != null) {
+            description = description.trim();
+        }
+        if (maxDays < 0) {
+            maxDays = 0;
+        }
     }
 
     @Override

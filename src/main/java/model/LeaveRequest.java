@@ -35,14 +35,16 @@ public class LeaveRequest {
         this.processedBy = processedBy;
     }
 
-    public LeaveRequest createRequest() {
+    public void createRequest() {
         if (requestDate == null) {
             requestDate = LocalDate.now();
         }
         if (status == null) {
             status = LeaveRequestStatus.PENDING;
         }
-        return this;
+        if (reason != null) {
+            reason = reason.trim();
+        }
     }
 
     public void approve() {

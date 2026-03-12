@@ -1,8 +1,6 @@
 package model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class LeaveHistory {
     private Long id;
@@ -11,7 +9,6 @@ public class LeaveHistory {
     private String note;
     private Employee employee;
     private LeaveRequest leaveRequest;
-    private final List<LeaveHistory> historyEntries = new ArrayList<>();
 
     public LeaveHistory() {
     }
@@ -24,14 +21,6 @@ public class LeaveHistory {
         this.note = note;
         this.employee = employee;
         this.leaveRequest = leaveRequest;
-    }
-
-    public void addHistoryEntry() {
-        historyEntries.add(this);
-    }
-
-    public List<LeaveHistory> getHistory() {
-        return new ArrayList<>(historyEntries);
     }
 
     public Long getId() {

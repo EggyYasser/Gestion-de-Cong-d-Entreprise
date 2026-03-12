@@ -21,7 +21,8 @@ public class LeaveBalance {
     }
 
     public double calculateBalance() {
-        return earnedDays - usedDays;
+        double balance = earnedDays - usedDays;
+        return Math.max(balance, 0);
     }
 
     public void updateBalance() {

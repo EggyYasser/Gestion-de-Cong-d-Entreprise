@@ -17,7 +17,6 @@ public class Employee {
     private String phone;
     private EmployeeStatus status;
     private LeaveBalance leaveBalance;
-    private LeaveHistory leaveHistory;
 
     public Employee() {
     }
@@ -40,10 +39,6 @@ public class Employee {
 
     public LeaveBalance viewLeaveBalance() {
         return leaveBalance;
-    }
-
-    public LeaveHistory viewLeaveHistory() {
-        return leaveHistory;
     }
 
     public Long getId() {
@@ -140,14 +135,6 @@ public class Employee {
 
     public void setLeaveBalance(LeaveBalance leaveBalance) {
         this.leaveBalance = leaveBalance;
-    }
-
-    public LeaveHistory getLeaveHistory() {
-        return leaveHistory;
-    }
-
-    public void setLeaveHistory(LeaveHistory leaveHistory) {
-        this.leaveHistory = leaveHistory;
     }
 
     @Override

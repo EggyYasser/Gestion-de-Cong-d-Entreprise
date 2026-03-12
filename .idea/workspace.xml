@@ -4,21 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0318223a-3ffa-41c4-be7e-1bb0594b9408" name="Changes" comment="Login UI (FXML + CSS + images)&#10;&#10;Login controller&#10;&#10;Main class&#10;&#10;Menu for congés (leave management)&#10;&#10;Menu controller + styles">
-      <change afterPath="$PROJECT_DIR$/src/main/java/enums/EmployeeStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/enums/LeaveRequestStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/Admin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/Employee.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/LeaveBalance.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/LeaveHistory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/LeaveRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/LeaveType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="0318223a-3ffa-41c4-be7e-1bb0594b9408" name="Changes" comment="Create classes and methods">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuCongesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuCongesController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/css/menu-conges.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/css/menu-conges.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/menu-Conges-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/menu-Conges-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +136,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773236094546</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Create classes and methods">
+      <option name="closed" value="true" />
+      <created>1773348379577</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1773348379577</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -167,6 +163,7 @@
     <MESSAGE value="Initial project setup and organized director structure" />
     <MESSAGE value="UI fixing" />
     <MESSAGE value="Login UI (FXML + CSS + images)&#10;&#10;Login controller&#10;&#10;Main class&#10;&#10;Menu for congés (leave management)&#10;&#10;Menu controller + styles" />
-    <option name="LAST_COMMIT_MESSAGE" value="Login UI (FXML + CSS + images)&#10;&#10;Login controller&#10;&#10;Main class&#10;&#10;Menu for congés (leave management)&#10;&#10;Menu controller + styles" />
+    <MESSAGE value="Create classes and methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="Create classes and methods" />
   </component>
 </project>

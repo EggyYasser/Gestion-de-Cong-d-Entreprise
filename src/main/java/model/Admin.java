@@ -26,13 +26,20 @@ public class Admin {
 
     public void addEmployee(Employee employee) {
         if (employee != null) {
-            employee.setStatus(EmployeeStatus.ACTIVE);
+            if (employee.getStatus() == null) {
+                employee.setStatus(EmployeeStatus.ACTIVE);
+            }
         }
     }
 
     public void updateEmployee(Employee employee) {
         if (employee != null) {
-            employee.setStatus(employee.getStatus());
+            employee.setFirstName(cleanText(employee.getFirstName()));
+            employee.setLastName(cleanText(employee.getLastName()));
+            employee.setDepartment(cleanText(employee.getDepartment()));
+            employee.setPosition(cleanText(employee.getPosition()));
+            employee.setEmail(cleanText(employee.getEmail()));
+            employee.setPhone(cleanText(employee.getPhone()));
         }
     }
 
@@ -94,6 +101,10 @@ public class Admin {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    private String cleanText(String value) {
+        return value == null ? null : value.trim();
     }
 
     @Override
