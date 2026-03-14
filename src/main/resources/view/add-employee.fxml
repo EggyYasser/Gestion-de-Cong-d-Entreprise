@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="addEVBox" prefHeight="567.0" prefWidth="576.0" spacing="20" stylesheets="@../css/add-employee.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="controller.AddEmployeeController">
+
+    <padding>
+        <Insets bottom="30" left="30" right="30" top="30" />
+    </padding>
+
+    <Label fx:id="addEHeaderLabel" styleClass="header-label" text="Add Employee" />
+
+    <GridPane fx:id="addEGridPane" hgap="20" vgap="15">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="50" />
+            <ColumnConstraints percentWidth="50" />
+        </columnConstraints>
+
+        <Label fx:id="addEFirstNameLabel" styleClass="field-label" text="First Name" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="addEFirstNameField" promptText="Enter first name" styleClass="text-field" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+
+        <Label fx:id="addELastNameLabel" styleClass="field-label" text="Last Name" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <TextField fx:id="addELastNameField" promptText="Enter last name" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+        <Label fx:id="addEBirthDateLabel" styleClass="field-label" text="Birth Date" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <DatePicker fx:id="addEBirthDatePicker" styleClass="date-picker" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+
+        <Label fx:id="addEHireDateLabel" styleClass="field-label" text="Hire Date" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <DatePicker fx:id="addEHireDatePicker" styleClass="date-picker" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+        <Label fx:id="addEDepartmentLabel" styleClass="field-label" text="Department" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <ComboBox fx:id="addEDepartmentCombo" promptText="Select department" styleClass="combo-box" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+
+        <Label fx:id="addEPositionLabel" styleClass="field-label" text="Position" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <TextField fx:id="addEPositionField" promptText="Enter position" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+        <Label fx:id="addEEmailLabel" styleClass="field-label" text="Email" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <TextField fx:id="addEEmailField" promptText="memberemail@gmail.com" styleClass="text-field" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+
+        <Label fx:id="addEPhoneLabel" styleClass="field-label" text="Phone" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+        <TextField fx:id="addEPhoneField" promptText="Enter phone number" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+        <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+        </rowConstraints>
+    </GridPane>
+
+    <HBox fx:id="addEButtonBox" alignment="CENTER_RIGHT" spacing="10">
+        <Button fx:id="addEAddAnotherButton" styleClass="add-button" text="+ Add another Member" />
+        <Button fx:id="addECancelButton" styleClass="cancel-button" text="Cancel" />
+        <Button fx:id="addEApproveButton" styleClass="approve-button" text="Approve" />
+    </HBox>
+
+</VBox>

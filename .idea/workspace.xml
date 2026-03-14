@@ -4,22 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0318223a-3ffa-41c4-be7e-1bb0594b9408" name="Changes" comment="Create classes and methods">
-      <change afterPath="$PROJECT_DIR$/src/main/java/controller/MenuEmployeeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/css/menu-employees.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/view/menu-emlpoyees.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="0318223a-3ffa-41c4-be7e-1bb0594b9408" name="Changes" comment="Update employees page UI">
+      <change afterPath="$PROJECT_DIR$/src/main/java/controller/AddEmployeeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/css/add-employee.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/addEmployee.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/view/add-employee.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/MenuCongesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/MenuCongesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/menu-Conges-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/menu-conges-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gestionconges/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gestionconges/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/menu-emlpoyees.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/menu-emlpoyees-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/gestionconges/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/gestionconges/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuCongesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuCongesController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/Admin.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/Admin.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/Employee.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/Employee.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/LeaveBalance.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/LeaveBalance.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/LeaveHistory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/LeaveHistory.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/LeaveRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/LeaveRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/LeaveType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/LeaveType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuEmployeeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuEmployeeController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/view/menu-Conges-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/menu-Conges-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/view/menu-emlpoyees.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,7 +155,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773348379577</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Update employees page UI">
+      <option name="closed" value="true" />
+      <created>1773494485935</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1773494485935</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -178,6 +183,7 @@
     <MESSAGE value="UI fixing" />
     <MESSAGE value="Login UI (FXML + CSS + images)&#10;&#10;Login controller&#10;&#10;Main class&#10;&#10;Menu for congés (leave management)&#10;&#10;Menu controller + styles" />
     <MESSAGE value="Create classes and methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create classes and methods" />
+    <MESSAGE value="Update employees page UI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update employees page UI" />
   </component>
 </project>

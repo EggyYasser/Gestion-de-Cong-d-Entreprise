@@ -27,7 +27,7 @@
                   <Insets left="15.0" right="15.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="vacationsButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Congees">
+            <Button fx:id="congeesButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Congees">
                <VBox.margin>
                   <Insets left="15.0" right="15.0" />
                </VBox.margin>
@@ -37,7 +37,7 @@
                   <Insets left="15.0" right="15.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="messengerButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Abonnements">
+            <Button fx:id="abonnementsButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Abonnements">
                <VBox.margin>
                   <Insets left="15.0" right="15.0" />
                </VBox.margin>

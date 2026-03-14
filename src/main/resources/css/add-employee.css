@@ -1,0 +1,98 @@
+.add-employee-container {
+    -fx-background-color: #f5f5f5;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 0);
+}
+
+.header-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-padding: 0 0 10 0;
+}
+
+.field-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #555555;
+    -fx-padding: 5 0 0 0;
+}
+
+.text-field, .combo-box, .date-picker {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-border-color: #dddddd;
+    -fx-border-radius: 5;
+    -fx-padding: 8 12;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused, .combo-box:focused, .date-picker:focused {
+    -fx-border-color: #4a90e2;
+    -fx-effect: dropshadow(gaussian, rgba(74, 144, 226, 0.2), 5, 0, 0, 0);
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0 5 5 0;
+}
+
+.date-picker .arrow-button:hover {
+    -fx-background-color: #e6e6e6;
+}
+
+.add-button {
+    -fx-background-color: transparent;
+    -fx-border-color: #4a90e2;
+    -fx-border-radius: 5;
+    -fx-text-fill: #4a90e2;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+
+.add-button:hover {
+    -fx-background-color: #4a90e2;
+    -fx-text-fill: white;
+}
+
+.cancel-button {
+    -fx-background-color: transparent;
+    -fx-border-color: #dc3545;
+    -fx-border-radius: 5;
+    -fx-text-fill: #dc3545;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-padding: 8 24;
+    -fx-cursor: hand;
+}
+
+.cancel-button:hover {
+    -fx-background-color: #dc3545;
+    -fx-text-fill: white;
+}
+
+.approve-button {
+    -fx-background-color: #4a90e2;
+    -fx-background-radius: 5;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-padding: 8 24;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(74, 144, 226, 0.3), 5, 0, 0, 0);
+}
+
+.approve-button:hover {
+    -fx-background-color: #357abd;
+}
+
+.approve-button:pressed {
+    -fx-background-color: #2a5f9e;
+    -fx-effect: none;
+}
