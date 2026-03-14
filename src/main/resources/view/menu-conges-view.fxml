@@ -27,19 +27,25 @@
                   <Insets left="15.0" right="15.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="congesButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Conges">
+            <Button fx:id="congeesButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Congees">
                <VBox.margin>
                   <Insets left="15.0" right="15.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="retardButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Retard">
+            <Button fx:id="employeesButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="active-button" text="Employees">
                <VBox.margin>
                   <Insets left="15.0" right="15.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="abandonButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Abandon">
+            <Button fx:id="abonnementsButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Abonnements">
                <VBox.margin>
                   <Insets left="15.0" right="15.0" />
+               </VBox.margin>
+            </Button>
+            <Region VBox.vgrow="ALWAYS" />
+            <Button fx:id="logoutButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Logout">
+               <VBox.margin>
+                  <Insets bottom="20.0" left="15.0" right="15.0" />
                </VBox.margin>
             </Button>
          </children>

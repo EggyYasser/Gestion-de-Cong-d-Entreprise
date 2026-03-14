@@ -1,0 +1,301 @@
+.root {
+    -fx-font-family: 'System';
+}
+
+#mainBorderPane {
+    -fx-background-color: #f5f5f5;
+}
+
+#sidebarVBox {
+    -fx-background-color: white;
+    -fx-min-width: 200px;
+    -fx-max-width: 200px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 1px 0 0;
+    -fx-spacing: 5px;
+    -fx-padding: 20px 0;
+}
+
+#sidebarVBox .button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #333333;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 12px 20px;
+    -fx-min-width: 200px;
+    -fx-cursor: hand;
+}
+
+#sidebarVBox .button:hover {
+    -fx-background-color: #f0f0f0;
+}
+
+#sidebarVBox .button.active-button {
+    -fx-background-color: #e8f0fe;
+    -fx-text-fill: #1976d2;
+    -fx-font-weight: bold;
+}
+
+#logoImageView {
+    -fx-background-color: #e0e0e0;
+    -fx-min-width: 50px;
+    -fx-min-height: 50px;
+    -fx-max-width: 50px;
+    -fx-max-height: 50px;
+    -fx-background-radius: 25px;
+}
+
+#logoutButton {
+    -fx-background-color: transparent;
+    -fx-text-fill: #dc3545;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 12px 20px;
+    -fx-min-width: 200px;
+    -fx-margin-top: auto;
+}
+
+#logoutButton:hover {
+    -fx-background-color: #ffebee;
+}
+
+#mainContentVBox {
+    -fx-background-color: #f5f5f5;
+    -fx-padding: 0;
+    -fx-spacing: 0;
+}
+
+#topBarHBox {
+    -fx-alignment: CENTER_LEFT;
+    -fx-spacing: 20px;
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 10px 0;
+}
+
+#searchTextField {
+    -fx-pref-width: 300px;
+    -fx-pref-height: 38px;
+    -fx-background-color: #f5f5f5;
+    -fx-background-radius: 20px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 20px;
+    -fx-padding: 0 15px;
+    -fx-font-size: 14px;
+}
+
+#searchTextField:focused {
+    -fx-background-color: white;
+    -fx-border-color: #1976d2;
+    -fx-border-width: 1px;
+}
+
+#notificationButton {
+    -fx-background-color: transparent;
+    -fx-font-size: 20px;
+    -fx-text-fill: #666666;
+    -fx-cursor: hand;
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+    -fx-background-radius: 20px;
+}
+
+#notificationButton:hover {
+    -fx-background-color: #f0f0f0;
+}
+
+#profileComboBox {
+    -fx-pref-width: 150px;
+    -fx-pref-height: 38px;
+    -fx-background-color: #f5f5f5;
+    -fx-background-radius: 20px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 20px;
+    -fx-padding: 0 10px;
+    -fx-font-size: 14px;
+}
+
+#profileComboBox:hover {
+    -fx-background-color: #e8e8e8;
+}
+
+#headerHBox {
+    -fx-alignment: CENTER_LEFT;
+    -fx-spacing: 10px;
+    -fx-padding: 20px 15px 10px 15px;
+}
+
+#employeePageTitleText {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-fill: #333333;
+}
+
+#employeesListView {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 10px 15px;
+}
+
+#employeesListView .list-cell {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-padding: 15px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-margin: 0 0 10px 0;
+}
+
+#employeesListView .list-cell:empty {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+#employeesListView .list-cell:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
+    -fx-border-color: #bbbbbb;
+}
+
+.employee-name {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.employee-email {
+    -fx-font-size: 13px;
+    -fx-text-fill: #666666;
+}
+
+.employee-detail {
+    -fx-font-size: 13px;
+    -fx-text-fill: #555555;
+}
+
+.employee-detail-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.employee-position {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1976d2;
+    -fx-background-color: #e8f0fe;
+    -fx-background-radius: 20px;
+    -fx-padding: 4px 12px;
+}
+
+.junior-badge {
+    -fx-background-color: #e3f2fd;
+    -fx-text-fill: #1976d2;
+    -fx-background-radius: 20px;
+    -fx-padding: 4px 12px;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.middle-badge {
+    -fx-background-color: #fff3e0;
+    -fx-text-fill: #f57c00;
+    -fx-background-radius: 20px;
+    -fx-padding: 4px 12px;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.senior-badge {
+    -fx-background-color: #e8f5e9;
+    -fx-text-fill: #388e3c;
+    -fx-background-radius: 20px;
+    -fx-padding: 4px 12px;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.gender-tag {
+    -fx-background-color: #f5f5f5;
+    -fx-background-radius: 4px;
+    -fx-padding: 2px 8px;
+    -fx-font-size: 12px;
+    -fx-text-fill: #666666;
+}
+
+.age-tag {
+    -fx-background-color: #e3f2fd;
+    -fx-background-radius: 4px;
+    -fx-padding: 2px 8px;
+    -fx-font-size: 12px;
+    -fx-text-fill: #1976d2;
+}
+
+.birthday-tag {
+    -fx-background-color: #fff3e0;
+    -fx-background-radius: 4px;
+    -fx-padding: 2px 8px;
+    -fx-font-size: 12px;
+    -fx-text-fill: #f57c00;
+}
+
+#paginationHBox {
+    -fx-alignment: CENTER_RIGHT;
+    -fx-spacing: 10px;
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px 0 0 0;
+    -fx-padding: 15px;
+}
+
+#paginationLabel {
+    -fx-font-size: 14px;
+    -fx-text-fill: #666666;
+}
+
+.pagination-button {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5px;
+    -fx-min-width: 36px;
+    -fx-min-height: 36px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+    -fx-cursor: hand;
+}
+
+.pagination-button:hover {
+    -fx-background-color: #f5f5f5;
+    -fx-border-color: #bbbbbb;
+}
+
+
+#ajouterEmployeesButton {
+    -fx-background-color: #3F8CFF;
+        -fx-text-fill: white;
+        -fx-font-size: 14px;
+        -fx-font-weight: bold;
+        -fx-padding: 10px 20px;
+        -fx-background-radius: 8px;
+        -fx-border-radius: 8px;
+        -fx-cursor: hand;
+        -fx-effect: dropshadow(gaussian, rgba(79, 70, 229, 0.3), 10, 0, 0, 2);
+}
+
+.pagination-button:pressed {
+    -fx-background-color: #e0e0e0;
+}
+
+.employee-card {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-padding: 15px;
+    -fx-spacing: 8px;
+}
+
+.employee-divider {
+    -fx-stroke: #e0e0e0;
+    -fx-stroke-width: 1px;
+}
