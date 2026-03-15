@@ -43,7 +43,6 @@
                     </VBox.margin>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
-            <Button fx:id="supportButton" layoutX="10.0" layoutY="261.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Support" />
                 <Button fx:id="logoutButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Logout">
                     <VBox.margin>
                         <Insets bottom="20.0" left="15.0" right="15.0" />

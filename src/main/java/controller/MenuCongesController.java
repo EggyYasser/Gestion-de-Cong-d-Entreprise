@@ -84,6 +84,9 @@ public class MenuCongesController {
     private VBox sidebarVBox;
 
     @FXML
+    private Button supportButton;
+
+    @FXML
     private HBox topBarHBox;
 
 }

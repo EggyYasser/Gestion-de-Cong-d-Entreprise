@@ -4,19 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0318223a-3ffa-41c4-be7e-1bb0594b9408" name="Changes" comment="Update employees page UI">
-      <change afterPath="$PROJECT_DIR$/src/main/java/controller/AddEmployeeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/css/add-employee.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/img/addEmployee.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/view/add-employee.fxml" afterDir="false" />
+    <list default="true" id="0318223a-3ffa-41c4-be7e-1bb0594b9408" name="Changes" comment="Add Employee Form with all required fields and buttons">
+      <change afterPath="$PROJECT_DIR$/src/main/java/controller/SupportController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/css/support.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/support-img.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/welcome-img.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/view/support-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gestionconges/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gestionconges/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/menu-emlpoyees.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/menu-emlpoyees-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/gestionconges/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/gestionconges/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuCongesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuCongesController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuEmployeeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuEmployeeController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/menu-Conges-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/menu-Conges-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/menu-emlpoyees.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/MenuCongesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/MenuCongesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/MenuEmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/MenuEmployeeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/menu-conges-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/menu-conges-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/menu-emlpoyees-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/menu-emlpoyees-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +161,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773494485935</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Add Employee Form with all required fields and buttons">
+      <option name="closed" value="true" />
+      <created>1773522844029</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1773522844029</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -184,6 +190,7 @@
     <MESSAGE value="Login UI (FXML + CSS + images)&#10;&#10;Login controller&#10;&#10;Main class&#10;&#10;Menu for congés (leave management)&#10;&#10;Menu controller + styles" />
     <MESSAGE value="Create classes and methods" />
     <MESSAGE value="Update employees page UI" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update employees page UI" />
+    <MESSAGE value="Add Employee Form with all required fields and buttons" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Employee Form with all required fields and buttons" />
   </component>
 </project>
