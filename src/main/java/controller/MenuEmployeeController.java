@@ -12,40 +12,28 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class MenuCongesController {
+public class MenuEmployeeController {
 
     @FXML
-    private Button abonnementsButton;
+    private Button abandonnementlButton;
 
     @FXML
-    private Button addRequestButton;
-
-    @FXML
-    private Button allFilterButton;
-
-    @FXML
-    private Button approvedFilterButton;
+    private Button ajouterEmployeesButton;
 
     @FXML
     private Button congeesButton;
 
     @FXML
-    private ListView<?> congesListView;
-
-    @FXML
-    private HBox contentAreaHBox;
-
-    @FXML
     private Button dashboardButton;
+
+    @FXML
+    private Text employeePageTitleText;
 
     @FXML
     private Button employeesButton;
 
     @FXML
-    private Label filtersLabel;
-
-    @FXML
-    private VBox filtersVBox;
+    private ListView<?> employeesListView;
 
     @FXML
     private HBox headerHBox;
@@ -63,19 +51,22 @@ public class MenuCongesController {
     private VBox mainContentVBox;
 
     @FXML
+    private Button nextPageButton;
+
+    @FXML
     private Button notificationButton;
 
     @FXML
-    private Text pageTitleText;
+    private HBox paginationHBox;
 
     @FXML
-    private Button pendingFilterButton;
+    private Label paginationLabel;
+
+    @FXML
+    private Button prevPageButton;
 
     @FXML
     private ComboBox<?> profileComboBox;
-
-    @FXML
-    private Button rejectedFilterButton;
 
     @FXML
     private TextField searchTextField;

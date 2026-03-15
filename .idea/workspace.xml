@@ -4,16 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0318223a-3ffa-41c4-be7e-1bb0594b9408" name="Changes" comment="UI fixing">
-      <change afterPath="$PROJECT_DIR$/src/main/java/controller/MenuCongesController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/css/menu-conges.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/img/Logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/img/login-img.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/view/menu-Conges-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gestionconges/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gestionconges/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/login-view.fxml" afterDir="false" />
+    <list default="true" id="0318223a-3ffa-41c4-be7e-1bb0594b9408" name="Changes" comment="Add Employee Form with all required fields and buttons">
+      <change afterPath="$PROJECT_DIR$/src/main/java/controller/SupportController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/css/support.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/support-img.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/welcome-img.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/view/support-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/MenuCongesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/MenuCongesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/MenuEmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/MenuEmployeeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/menu-conges-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/menu-conges-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/menu-emlpoyees-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/menu-emlpoyees-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,14 +24,45 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="developement" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;EggyYasser&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/EggyYasser/Gestion-de-Cong-d-Entreprise.git&quot;,
+    &quot;accountId&quot;: &quot;86100092-227a-4817-bcfe-dda5bb862d12&quot;
+  }
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -57,7 +89,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;developement&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
@@ -105,7 +137,39 @@
       <option name="project" value="LOCAL" />
       <updated>1773172427724</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Login UI (FXML + CSS + images)&#10;&#10;Login controller&#10;&#10;Main class&#10;&#10;Menu for congés (leave management)&#10;&#10;Menu controller + styles">
+      <option name="closed" value="true" />
+      <created>1773236094546</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1773236094546</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Create classes and methods">
+      <option name="closed" value="true" />
+      <created>1773348379577</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1773348379577</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Update employees page UI">
+      <option name="closed" value="true" />
+      <created>1773494485935</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1773494485935</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add Employee Form with all required fields and buttons">
+      <option name="closed" value="true" />
+      <created>1773522844029</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1773522844029</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -123,6 +187,10 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Initial project setup and organized director structure" />
     <MESSAGE value="UI fixing" />
-    <option name="LAST_COMMIT_MESSAGE" value="UI fixing" />
+    <MESSAGE value="Login UI (FXML + CSS + images)&#10;&#10;Login controller&#10;&#10;Main class&#10;&#10;Menu for congés (leave management)&#10;&#10;Menu controller + styles" />
+    <MESSAGE value="Create classes and methods" />
+    <MESSAGE value="Update employees page UI" />
+    <MESSAGE value="Add Employee Form with all required fields and buttons" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Employee Form with all required fields and buttons" />
   </component>
 </project>
