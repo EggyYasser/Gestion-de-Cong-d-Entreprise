@@ -4,17 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0318223a-3ffa-41c4-be7e-1bb0594b9408" name="Changes" comment="Add Employee Form with all required fields and buttons">
-      <change afterPath="$PROJECT_DIR$/src/main/java/controller/SupportController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/css/support.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/img/support-img.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/img/welcome-img.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/view/support-view.fxml" afterDir="false" />
+    <list default="true" id="0318223a-3ffa-41c4-be7e-1bb0594b9408" name="Changes" comment="Add Support Form with all required fields and buttons">
+      <change afterPath="$PROJECT_DIR$/src/main/java/controller/DashboardController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/css/dashboard.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/active-user.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/cross.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/group.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/stamp.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/time-left.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/view/dashboard-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/MenuCongesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/MenuCongesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/MenuEmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/MenuEmployeeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/menu-conges-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/menu-conges-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/menu-emlpoyees-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/menu-emlpoyees-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuCongesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuCongesController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuEmployeeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuEmployeeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/view/menu-Conges-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/menu-Conges-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/view/menu-emlpoyees-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/menu-emlpoyees-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +34,19 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="main" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
     <favorite-branches>
       <branch-storage>
         <map>
@@ -81,22 +97,22 @@
     <option name="openDirectoriesWithSingleClick" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;developement&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "developement",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="Gestion-de-Cong-d-Entreprise" />
@@ -169,7 +185,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773522844029</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Add Support Form with all required fields and buttons">
+      <option name="closed" value="true" />
+      <created>1773540330462</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1773540330462</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -191,6 +215,7 @@
     <MESSAGE value="Create classes and methods" />
     <MESSAGE value="Update employees page UI" />
     <MESSAGE value="Add Employee Form with all required fields and buttons" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Employee Form with all required fields and buttons" />
+    <MESSAGE value="Add Support Form with all required fields and buttons" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Support Form with all required fields and buttons" />
   </component>
 </project>
