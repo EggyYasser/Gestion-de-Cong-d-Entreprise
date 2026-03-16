@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -11,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import util.ViewNavigator;
 
 public class MenuEmployeeController {
 
@@ -33,7 +35,7 @@ public class MenuEmployeeController {
     private Button employeesButton;
 
     @FXML
-    private ListView<?> employeesListView;
+    private ListView<String> employeesListView;
 
     @FXML
     private HBox headerHBox;
@@ -66,7 +68,7 @@ public class MenuEmployeeController {
     private Button prevPageButton;
 
     @FXML
-    private ComboBox<?> profileComboBox;
+    private ComboBox<String> profileComboBox;
 
     @FXML
     private TextField searchTextField;
@@ -80,4 +82,29 @@ public class MenuEmployeeController {
     @FXML
     private HBox topBarHBox;
 
+    @FXML
+    private void initialize() {
+        profileComboBox.setItems(FXCollections.observableArrayList("Admin / DRH"));
+        profileComboBox.getSelectionModel().selectFirst();
+
+        employeesListView.setItems(FXCollections.observableArrayList(
+                "EMP001 - Ahmed Benali - HR",
+                "EMP002 - Sara Boussaid - Finance",
+                "EMP003 - Yacine Merabet - IT",
+                "EMP004 - Lina Kaci - Marketing"
+        ));
+        employeePageTitleText.setText("Employees (" + employeesListView.getItems().size() + ")");
+        paginationLabel.setText("1-" + employeesListView.getItems().size() + " of " + employeesListView.getItems().size());
+
+        dashboardButton.setOnAction(event -> ViewNavigator.switchScene(dashboardButton, "/view/dashboard-view.fxml", "Dashboard"));
+        congeesButton.setOnAction(event -> ViewNavigator.switchScene(congeesButton, "/view/menu-conges-view.fxml", "Leave Requests"));
+        employeesButton.setOnAction(event -> ViewNavigator.switchScene(employeesButton, "/view/menu-emlpoyees-view.fxml", "Employees"));
+        supportButton.setOnAction(event -> ViewNavigator.openModal(supportButton, "/view/support-view.fxml", "Support"));
+        logoutButton.setOnAction(event -> ViewNavigator.switchScene(logoutButton, "/view/login-view.fxml", "Login"));
+        ajouterEmployeesButton.setOnAction(event -> ViewNavigator.openModal(ajouterEmployeesButton, "/view/add-employee.fxml", "Add Employee"));
+        abandonnementlButton.setOnAction(event -> ViewNavigator.showInformation("Abandonment", "This module is outside version 1."));
+        notificationButton.setOnAction(event -> ViewNavigator.showInformation("Notifications", "No notifications available."));
+        prevPageButton.setOnAction(event -> ViewNavigator.showInformation("Pagination", "You are already on the first page."));
+        nextPageButton.setOnAction(event -> ViewNavigator.showInformation("Pagination", "There are no more pages yet."));
+    }
 }

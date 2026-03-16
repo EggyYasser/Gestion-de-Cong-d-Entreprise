@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -11,6 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import util.ViewNavigator;
 
 public class DashboardController {
 
@@ -48,7 +50,7 @@ public class DashboardController {
     private VBox cardTotalEmployees;
 
     @FXML
-    private ComboBox<?> comboProfile;
+    private ComboBox<String> comboProfile;
 
     @FXML
     private Button congesButton;
@@ -110,4 +112,27 @@ public class DashboardController {
     @FXML
     private Label valTotalEmployees;
 
+    @FXML
+    private void initialize() {
+        comboProfile.setItems(FXCollections.observableArrayList("Admin / DRH"));
+        comboProfile.getSelectionModel().selectFirst();
+
+        valTotalEmployees.setText("12");
+        valActiveEmployees.setText("10");
+        valPendingLeaves.setText("3");
+        valStatPending.setText("3");
+        valStatApproved.setText("7");
+        valStatRejected.setText("1");
+        lblTrendTotal.setText("+2 this month");
+        lblTrendActive.setText("+1 this week");
+        lblTrendPending.setText("3 waiting");
+
+        btnDashboard.setOnAction(event -> ViewNavigator.switchScene(btnDashboard, "/view/dashboard-view.fxml", "Dashboard"));
+        btnEmployees.setOnAction(event -> ViewNavigator.switchScene(btnEmployees, "/view/menu-emlpoyees-view.fxml", "Employees"));
+        congesButton.setOnAction(event -> ViewNavigator.switchScene(congesButton, "/view/menu-conges-view.fxml", "Leave Requests"));
+        btnSupport.setOnAction(event -> ViewNavigator.openModal(btnSupport, "/view/support-view.fxml", "Support"));
+        btnLogout.setOnAction(event -> ViewNavigator.switchScene(btnLogout, "/view/login-view.fxml", "Login"));
+        abonnementsButton.setOnAction(event -> ViewNavigator.showInformation("Abonnement", "This module is not included in version 1."));
+        btnNotifications.setOnAction(event -> ViewNavigator.showInformation("Notifications", "No new notifications for now."));
+    }
 }
