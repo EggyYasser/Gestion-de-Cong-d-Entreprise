@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
@@ -18,14 +19,12 @@
    <left>
       <VBox fx:id="sidebarVBox" alignment="TOP_CENTER" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="logoImageView" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-               <VBox.margin><Insets bottom="20.0" top="20.0" /></VBox.margin>
-            </ImageView>
+            <StackPane fx:id="logoIcon" prefHeight="80.0" prefWidth="182.0" styleClass="logo-icon" />
 
             <Button fx:id="dashboardButton" mnemonicParsing="false" styleClass="nav-button" text="Dashboard" />
             <Button fx:id="congeesButton" mnemonicParsing="false" styleClass="active-button" text="Congees" />
             <Button fx:id="employeesButton" mnemonicParsing="false" styleClass="nav-button" text="Employees" />
-            <Button fx:id="abonnementsButton" mnemonicParsing="false" styleClass="nav-button" text="Abonnements" />
+            <Button fx:id="abonnementsButton" mnemonicParsing="false" styleClass="nav-button" text="Abandonnement" />
 
             <Region VBox.vgrow="ALWAYS" />
 
