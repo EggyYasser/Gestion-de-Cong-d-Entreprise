@@ -21,13 +21,13 @@
     <left>
         <VBox fx:id="sidebarVBox" alignment="TOP_CENTER" prefWidth="200.0" spacing="10.0" styleClass="sidebar">
             <children>
-                <StackPane fx:id="logoIcon" prefHeight="80.0" prefWidth="182.0" styleClass="logo-icon" />
+                <StackPane fx:id="logoIcon" prefHeight="93.0" prefWidth="199.0" styleClass="logo-icon" />
                 <Button fx:id="btnDashboard" maxWidth="Infinity" mnemonicParsing="false" styleClass="active-button" text="Dashboard" />
                 <Button fx:id="congesButton" maxWidth="Infinity" mnemonicParsing="false" styleClass="nav-button" text="Conges" />
                 <Button fx:id="btnEmployees" maxWidth="Infinity" mnemonicParsing="false" styleClass="nav-button" text="Employees" />
-                <Button fx:id="abonnementsButton" maxWidth="Infinity" mnemonicParsing="false" styleClass="nav-button" text="Abonnement" />
+                <Button fx:id="abonnementsButton" maxWidth="Infinity" mnemonicParsing="false" styleClass="nav-button" text="Abandonnement" />
                 <Region VBox.vgrow="ALWAYS" />
-                <Button fx:id="btnSupport" mnemonicParsing="false" prefHeight="45.0" prefWidth="180.0" styleClass="support-button" text="Support">
+                <Button fx:id="btnSupport" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" styleClass="support-button" text="Support">
                     <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.8">
                             <image>
@@ -39,9 +39,9 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                 </Button>
-                <Button fx:id="btnLogout" maxWidth="Infinity" mnemonicParsing="false" styleClass="nav-button" text="                Logout" textAlignment="RIGHT">
+                <Button fx:id="btnLogout" maxWidth="Infinity" mnemonicParsing="false" prefHeight="44.0" prefWidth="146.0" text="               Logout" textAlignment="RIGHT">
                     <VBox.margin>
-                        <Insets bottom="10.0" />
+                        <Insets bottom="20.0" />
                     </VBox.margin>
                 </Button>
             </children>
@@ -55,7 +55,7 @@
                         <Insets left="20.0" right="20.0" />
                     </padding>
                     <children>
-                        <TextField fx:id="txtSearch" prefWidth="300.0" promptText="Search..." styleClass="search-field" />
+                        <TextField fx:id="txtSearch" prefWidth="300.0" promptText="Search..." />
                         <Region HBox.hgrow="ALWAYS" />
                         <Button fx:id="btnNotifications" mnemonicParsing="false" styleClass="icon-button" text="🔔" />
                         <ComboBox fx:id="comboProfile" prefWidth="150.0" promptText="Profile" styleClass="profile-combo" />

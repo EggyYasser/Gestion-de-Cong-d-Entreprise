@@ -63,7 +63,6 @@
     -fx-cursor: hand;
 }
 
-/* --- Top Bar & Header --- */
 #topBarHBox {
     -fx-alignment: CENTER_LEFT;
     -fx-spacing: 15;
