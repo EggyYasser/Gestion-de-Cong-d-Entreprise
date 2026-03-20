@@ -11,7 +11,6 @@
     -fx-spacing: 0;
 }
 
-
 #sidebarVBox {
     -fx-background-color: white;
     -fx-border-color: #E3E6F0;
@@ -55,7 +54,6 @@
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 12 20;
 }
-
 
 #topBarHBox {
     -fx-alignment: CENTER_LEFT;
@@ -117,4 +115,33 @@
     -fx-background-radius: 10;
     -fx-border-color: #e0e0e0;
     -fx-border-radius: 10;
+    -fx-padding: 5;
+}
+
+#congesListView .list-cell {
+    -fx-padding: 18 25;
+    -fx-font-size: 15px;
+    -fx-text-fill: #2E3A59;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent #f1f3f9 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+#congesListView .list-cell:odd {
+    -fx-background-color: #fafbfc;
+}
+
+#congesListView .list-cell:filled:hover {
+    -fx-background-color: #f0f4ff;
+    -fx-cursor: hand;
+}
+
+#congesListView .list-cell:selected {
+    -fx-background-color: #3F8CFF;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+#congesListView:focused .list-cell:selected {
+    -fx-background-color: #3F8CFF;
 }

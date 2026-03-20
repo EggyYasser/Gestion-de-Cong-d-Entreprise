@@ -101,6 +101,7 @@ public class MenuCongesController {
         employeesButton.setOnAction(event -> ViewNavigator.switchScene(employeesButton, "/view/menu-emlpoyees-view.fxml", "Employees"));
         congeesButton.setOnAction(event -> ViewNavigator.switchScene(congeesButton, "/view/menu-conges-view.fxml", "Leave Requests"));
         supportButton.setOnAction(event -> ViewNavigator.openModal(supportButton, "/view/support-view.fxml", "Support"));
+        abonnementsButton.setOnAction(event -> ViewNavigator.showInformation("Abonnement", "This module is not included in version 1."));
         logoutButton.setOnAction(event -> ViewNavigator.switchScene(logoutButton, "/view/login-view.fxml", "Login"));
         notificationButton.setOnAction(event -> ViewNavigator.showInformation("Notifications", "No notifications available."));
         addRequestButton.setOnAction(event -> ViewNavigator.showInformation("New Leave Request", "Leave request creation form will be connected in the next backend step."));
