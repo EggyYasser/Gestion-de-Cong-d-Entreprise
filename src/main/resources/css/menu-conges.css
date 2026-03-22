@@ -119,8 +119,8 @@
 }
 
 #congesListView .list-cell {
-    -fx-padding: 18 25;
-    -fx-font-size: 15px;
+    -fx-padding: 12 20;
+    -fx-font-size: 14px;
     -fx-text-fill: #2E3A59;
     -fx-background-color: transparent;
     -fx-border-color: transparent transparent #f1f3f9 transparent;
@@ -133,15 +133,73 @@
 
 #congesListView .list-cell:filled:hover {
     -fx-background-color: #f0f4ff;
+}
+
+#congesListView .list-cell:filled:selected {
+    -fx-background-color: #3F8CFF;
+}
+
+#congesListView .list-cell:filled:selected .label {
+    -fx-text-fill: white;
+}
+
+#congesListView .list-cell:filled:selected #action-button {
+    -fx-background-color: white;
+    -fx-border-color: white;
+    -fx-text-fill: #3F8CFF;
+}
+
+#modify-button {
+    -fx-background-color: #3F8CFF;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6px;
+    -fx-padding: 6 14;
     -fx-cursor: hand;
 }
 
-#congesListView .list-cell:selected {
-    -fx-background-color: #3F8CFF;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
+#congesListView .list-cell:filled:selected .modify-button {
+    -fx-background-color: white;
+    -fx-text-fill: #3F8CFF;
 }
 
-#congesListView:focused .list-cell:selected {
-    -fx-background-color: #3F8CFF;
+#modify-button:hover {
+    -fx-background-color: #2b74e2;
+}
+
+#delete-button {
+    -fx-background-color: #dc3545;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6px;
+    -fx-padding: 6 14;
+    -fx-cursor: hand;
+}
+
+#congesListView .list-cell:filled:selected .delete-button {
+    -fx-border-color: white;
+    -fx-border-width: 1px;
+}
+
+#delete-button:hover {
+    -fx-background-color: #bb2d3b;
+}
+
+#action-button {
+    -fx-background-color: #f8f9fc;
+    -fx-border-color: #d1d3e2;
+    -fx-border-radius: 6px;
+    -fx-border-width: 1px;
+    -fx-text-fill: #4e73df;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 6 14;
+    -fx-cursor: hand;
+}
+
+#action-button:hover {
+    -fx-background-color: #eaecf4;
+    -fx-border-color: #b7b9cc;
 }
