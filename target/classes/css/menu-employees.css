@@ -142,3 +142,34 @@
     -fx-border-color: #3F8CFF;
     -fx-text-fill: #3F8CFF;
 }
+
+#action-button {
+    -fx-background-color: #f8f9fc;
+    -fx-border-color: #d1d3e2;
+    -fx-border-radius: 6px;
+    -fx-border-width: 1px;
+    -fx-text-fill: #4e73df;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 6 14;
+    -fx-cursor: hand;
+}
+
+#action-button:hover {
+    -fx-background-color: #eaecf4;
+    -fx-border-color: #b7b9cc;
+}
+
+#delete-button {
+    -fx-background-color: #dc3545;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6px;
+    -fx-padding: 6 14;
+    -fx-cursor: hand;
+}
+
+#delete-button:hover {
+    -fx-background-color: #bb2d3b;
+}

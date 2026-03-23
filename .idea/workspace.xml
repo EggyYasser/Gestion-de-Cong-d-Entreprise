@@ -4,15 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0318223a-3ffa-41c4-be7e-1bb0594b9408" name="Changes" comment="UI improvements">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_03_2026_21_03_[Changes]1/MenuCongesController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_03_2026_21_03_[Changes]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_03_2026_21_03__Changes_1.xml" beforeDir="false" />
+    <list default="true" id="0318223a-3ffa-41c4-be7e-1bb0594b9408" name="Changes" comment="add buttons for modify action and supp for menu-conges">
+      <change afterPath="$PROJECT_DIR$/src/main/java/controller/EmployeeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/css/employee.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/view/employee-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/MenuCongesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/MenuCongesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/css/menu-conges.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/menu-conges.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuCongesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuCongesController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/css/menu-conges.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/css/menu-conges.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/MenuEmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/MenuEmployeeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/css/menu-employees.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/menu-employees.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuEmployeeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuEmployeeController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/css/menu-employees.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/css/menu-employees.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -221,7 +220,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773979806683</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="add buttons for modify action and supp for menu-conges">
+      <option name="closed" value="true" />
+      <created>1774201788553</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1774201788553</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -248,6 +255,7 @@
     <MESSAGE value="UI STUFF" />
     <MESSAGE value="Fixed Login View and improved it css" />
     <MESSAGE value="UI improvements" />
-    <option name="LAST_COMMIT_MESSAGE" value="UI improvements" />
+    <MESSAGE value="add buttons for modify action and supp for menu-conges" />
+    <option name="LAST_COMMIT_MESSAGE" value="add buttons for modify action and supp for menu-conges" />
   </component>
 </project>
