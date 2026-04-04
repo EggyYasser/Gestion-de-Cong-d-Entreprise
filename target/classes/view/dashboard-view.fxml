@@ -14,37 +14,35 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="mainBorderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="1000.0" prefHeight="700.0" prefWidth="1100.0" stylesheets="@../css/dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardController">
+<BorderPane fx:id="mainBorderPane" minHeight="700.0" minWidth="1100.0" prefHeight="700.0" prefWidth="1100.0" stylesheets="@../css/dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardController">
     <left>
-        <VBox fx:id="sidebarVBox" alignment="TOP_CENTER" prefWidth="240.0" spacing="10.0" styleClass="sidebar">
+        <VBox fx:id="sidebarVBox" alignment="TOP_CENTER" prefWidth="200.0" spacing="10.0" styleClass="sidebar">
             <children>
-                <HBox alignment="CENTER_LEFT" spacing="10.0">
-                    <padding><Insets bottom="30.0" left="20.0" top="20.0" /></padding>
-                    <children>
-                        <StackPane fx:id="logoIcon" prefHeight="30.0" prefWidth="30.0" styleClass="logo-icon" />
-                    </children>
-                </HBox>
-                <Button fx:id="btnDashboard" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="nav-button-active" text="Dashboard" />
-                <Button fx:id="congesButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="nav-button" text="Conges" />
-                <Button fx:id="abonnementsButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="nav-button" text="Abonnement" />
-                <Button fx:id="btnEmployees" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="nav-button" text="Employees" />
-
+                <StackPane fx:id="logoIcon" prefHeight="93.0" prefWidth="199.0" styleClass="logo-icon" />
+                <Button fx:id="btnDashboard" maxWidth="Infinity" mnemonicParsing="false" styleClass="active-button" text="Dashboard" />
+                <Button fx:id="congesButton" maxWidth="Infinity" mnemonicParsing="false" styleClass="nav-button" text="Conges" />
+                <Button fx:id="btnEmployees" maxWidth="Infinity" mnemonicParsing="false" styleClass="nav-button" text="Employees" />
+                <Button fx:id="abonnementsButton" maxWidth="Infinity" mnemonicParsing="false" styleClass="nav-button" text="Abandonnement" />
                 <Region VBox.vgrow="ALWAYS" />
-
-                <Button fx:id="btnSupport" alignment="CENTER" maxWidth="1.7976931348623157E308" minHeight="50.0" mnemonicParsing="false" styleClass="support-button" text="Support">
+                <Button fx:id="btnSupport" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" styleClass="support-button" text="Support">
                     <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.7">
-                            <image><Image url="@../img/support.png" /></image>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.8">
+                            <image>
+                                <Image url="@../img/support.png" />
+                            </image>
                         </ImageView>
                     </graphic>
-                    <cursor><Cursor fx:constant="HAND" /></cursor>
-                    <VBox.margin><Insets left="15.0" right="15.0" /></VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                 </Button>
-
-                <Button fx:id="btnLogout" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="nav-button" text="Logout">
-                    <VBox.margin><Insets bottom="20.0" /></VBox.margin>
+                <Button fx:id="btnLogout" maxWidth="Infinity" mnemonicParsing="false" prefHeight="44.0" prefWidth="146.0" text="               Logout" textAlignment="RIGHT">
+                    <VBox.margin>
+                        <Insets bottom="20.0" />
+                    </VBox.margin>
                 </Button>
             </children>
         </VBox>
@@ -53,43 +51,50 @@
         <VBox fx:id="mainContentVBox" styleClass="main-bg">
             <children>
                 <HBox fx:id="topBarHBox" alignment="CENTER_LEFT" prefHeight="70.0" spacing="15.0">
+                    <padding>
+                        <Insets left="20.0" right="20.0" />
+                    </padding>
                     <children>
-                        <TextField fx:id="txtSearch" prefWidth="300.0" promptText="Search..." styleClass="search-field">
-                            <HBox.margin><Insets left="20.0" /></HBox.margin>
-                        </TextField>
+                        <TextField fx:id="txtSearch" prefWidth="300.0" promptText="Search..." />
                         <Region HBox.hgrow="ALWAYS" />
                         <Button fx:id="btnNotifications" mnemonicParsing="false" styleClass="icon-button" text="🔔" />
-                        <ComboBox fx:id="comboProfile" prefWidth="150.0" promptText="Profile" styleClass="profile-combo">
-                            <HBox.margin><Insets right="20.0" /></HBox.margin>
-                        </ComboBox>
+                        <ComboBox fx:id="comboProfile" prefWidth="150.0" promptText="Profile" styleClass="profile-combo" />
                     </children>
                 </HBox>
-
                 <ScrollPane fx:id="scrollPane" fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" VBox.vgrow="ALWAYS">
                     <content>
                         <VBox spacing="25.0">
+                            <padding>
+                                <Insets bottom="30.0" left="25.0" right="25.0" top="20.0" />
+                            </padding>
                             <children>
                                 <VBox spacing="5.0">
                                     <children>
-                                        <Text fx:id="txtPageTitle" styleClass="page-title" text="Dashboard" />
-                                        <Text fx:id="txtWelcomeMsg" styleClass="page-subtitle" text="Welcome back! Here's what's happening today." />
+                                        <Text fx:id="txtPageTitle" styleClass="page-title" text="Dashboard">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></Text>
+                                        <Text fx:id="txtWelcomeMsg" styleClass="page-subtitle" text="Welcome back! Here's what's happening today.">
+                                 <font>
+                                    <Font name="Arial Unicode MS" size="15.0" />
+                                 </font></Text>
                                     </children>
                                 </VBox>
-
                                 <HBox spacing="20.0">
                                     <children>
                                         <VBox fx:id="cardTotalEmployees" styleClass="stat-card" HBox.hgrow="ALWAYS">
                                             <children>
                                                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                                                     <children>
-                                                        <StackPane prefHeight="35.0" prefWidth="35.0" styleClass="icon-blue">
-                                             <children>
-                                                <ImageView fitHeight="30.0" fitWidth="30.0">
-                                                   <image>
-                                                      <Image url="@../img/group.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </children></StackPane>
+                                                        <StackPane maxWidth="35.0" prefHeight="35.0" prefWidth="35.0" styleClass="icon-blue">
+                                                            <children>
+                                                                <ImageView fitHeight="25.0" fitWidth="25.0">
+                                                                    <image>
+                                                                        <Image url="@../img/group.png" />
+                                                                    </image>
+                                                                </ImageView>
+                                                            </children>
+                                                        </StackPane>
                                                         <Label fx:id="lblTrendTotal" styleClass="trend-green" />
                                                     </children>
                                                 </HBox>
@@ -101,14 +106,15 @@
                                             <children>
                                                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                                                     <children>
-                                                        <StackPane prefHeight="35.0" prefWidth="35.0" styleClass="icon-green">
-                                             <children>
-                                                <ImageView fitHeight="30.0" fitWidth="30.0">
-                                                   <image>
-                                                      <Image url="@../img/active-user.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </children></StackPane>
+                                                        <StackPane maxWidth="35.0" prefHeight="35.0" prefWidth="35.0" styleClass="icon-green">
+                                                            <children>
+                                                                <ImageView fitHeight="25.0" fitWidth="25.0">
+                                                                    <image>
+                                                                        <Image url="@../img/active-user.png" />
+                                                                    </image>
+                                                                </ImageView>
+                                                            </children>
+                                                        </StackPane>
                                                         <Label fx:id="lblTrendActive" styleClass="trend-green" />
                                                     </children>
                                                 </HBox>
@@ -120,15 +126,16 @@
                                             <children>
                                                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                                                     <children>
-                                                        <StackPane prefHeight="35.0" prefWidth="35.0" styleClass="icon-orange">
-                                             <children>
-                                                <ImageView fitHeight="30.0" fitWidth="30.0">
-                                                   <image>
-                                                      <Image url="@../img/time-left.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </children></StackPane>
-                                                        <Label fx:id="lblTrendPending" styleClass="trend-blue" text="0 new" />
+                                                        <StackPane maxWidth="35.0" prefHeight="35.0" prefWidth="35.0" styleClass="icon-orange">
+                                                            <children>
+                                                                <ImageView fitHeight="25.0" fitWidth="25.0">
+                                                                    <image>
+                                                                        <Image url="@../img/time-left.png" />
+                                                                    </image>
+                                                                </ImageView>
+                                                            </children>
+                                                        </StackPane>
+                                                        <Label fx:id="lblTrendPending" styleClass="trend-blue" />
                                                     </children>
                                                 </HBox>
                                                 <Label styleClass="stat-label" text="Pending Leaves" />
@@ -137,8 +144,7 @@
                                         </VBox>
                                     </children>
                                 </HBox>
-
-                                <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+                                <HBox spacing="20.0">
                                     <children>
                                         <VBox fx:id="cardRecentRequests" prefHeight="300.0" styleClass="content-card" HBox.hgrow="ALWAYS">
                                             <children>
@@ -150,40 +156,43 @@
                                                 </StackPane>
                                             </children>
                                         </VBox>
-                                        <VBox fx:id="cardLeaveStats" prefWidth="300.0" spacing="10.0" styleClass="content-card">
+                                        <VBox fx:id="cardLeaveStats" prefWidth="320.0" spacing="12.0" styleClass="content-card">
                                             <children>
                                                 <Text styleClass="card-header" text="Leave Statistics" />
-                                                <HBox styleClass="list-item-pending">
+                                                <HBox alignment="CENTER_LEFT" styleClass="list-item-pending">
                                                     <children>
-                                          <ImageView fitHeight="30.0" fitWidth="30.0">
-                                             <image>
-                                                <Image url="@../img/time-left.png" />
-                                             </image>
-                                          </ImageView>
-                                                        <Label maxWidth="1.7976931348623157E308" style="-fx-text-fill: black;" text="     Pending Requests      0" textFill="#a46464" HBox.hgrow="ALWAYS" />
-                                                        <Label fx:id="valStatPending" style="-fx-font-weight: bold;" text="12" />
+                                                        <ImageView fitHeight="24.0" fitWidth="24.0">
+                                                            <image>
+                                                                <Image url="@../img/time-left.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                        <Label styleClass="list-label" text="Pending" />
+                                                        <Region HBox.hgrow="ALWAYS" />
+                                                        <Label fx:id="valStatPending" style="-fx-font-weight: bold;" text="0" />
                                                     </children>
                                                 </HBox>
-                                                <HBox styleClass="list-item-approved">
+                                                <HBox alignment="CENTER_LEFT" styleClass="list-item-approved">
                                                     <children>
-                                          <ImageView fitHeight="30.0" fitWidth="30.0">
-                                             <image>
-                                                <Image url="@../img/stamp.png" />
-                                             </image>
-                                          </ImageView>
-                                                        <Label maxWidth="1.7976931348623157E308" style="-fx-text-fill: black;" text="     Approved                  0" HBox.hgrow="ALWAYS" />
-                                                        <Label fx:id="valStatApproved" style="-fx-font-weight: bold;" text="45" />
+                                                        <ImageView fitHeight="24.0" fitWidth="24.0">
+                                                            <image>
+                                                                <Image url="@../img/stamp.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                        <Label styleClass="list-label" text="Approved" />
+                                                        <Region HBox.hgrow="ALWAYS" />
+                                                        <Label fx:id="valStatApproved" style="-fx-font-weight: bold;" text="0" />
                                                     </children>
                                                 </HBox>
-                                                <HBox styleClass="list-item-rejected">
+                                                <HBox alignment="CENTER_LEFT" styleClass="list-item-rejected">
                                                     <children>
-                                          <ImageView fitHeight="30.0" fitWidth="30.0">
-                                             <image>
-                                                <Image url="@../img/cross.png" />
-                                             </image>
-                                          </ImageView>
-                                                        <Label maxWidth="1.7976931348623157E308" style="-fx-text-fill: black;" text="       Rejected                 0" textAlignment="RIGHT" HBox.hgrow="ALWAYS" />
-                                                        <Label fx:id="valStatRejected" style="-fx-font-weight: bold;" text="3" />
+                                                        <ImageView fitHeight="24.0" fitWidth="24.0">
+                                                            <image>
+                                                                <Image url="@../img/cross.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                        <Label styleClass="list-label" text="Rejected" />
+                                                        <Region HBox.hgrow="ALWAYS" />
+                                                        <Label fx:id="valStatRejected" style="-fx-font-weight: bold;" text="0" />
                                                     </children>
                                                 </HBox>
                                             </children>

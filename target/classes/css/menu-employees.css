@@ -2,47 +2,41 @@
     -fx-font-family: 'System';
 }
 
-#mainBorderPane {
+#mainBorderPane, #mainContentVBox {
     -fx-background-color: #f5f5f5;
+}
+
+#mainContentVBox {
+    -fx-padding: 0;
+    -fx-spacing: 0;
 }
 
 #sidebarVBox {
     -fx-background-color: white;
-    -fx-min-width: 200px;
-    -fx-max-width: 200px;
-    -fx-border-color: #e0e0e0;
-    -fx-border-width: 0 1px 0 0;
-    -fx-spacing: 5px;
-    -fx-padding: 20px 0;
+    -fx-border-color: #E3E6F0;
+    -fx-border-width: 0 1 0 0;
+    -fx-padding: 10 0;
 }
 
-#sidebarVBox .button {
+.nav-button, .active-button {
     -fx-background-color: transparent;
-    -fx-text-fill: #333333;
-    -fx-font-size: 14px;
+    -fx-text-fill: #6E707E;
     -fx-alignment: CENTER_LEFT;
-    -fx-padding: 12px 20px;
-    -fx-min-width: 200px;
+    -fx-padding: 12 20;
+    -fx-font-size: 14px;
     -fx-cursor: hand;
+    -fx-max-width: infinity;
 }
 
-#sidebarVBox .button:hover {
-    -fx-background-color: #f0f0f0;
+.nav-button:hover {
+    -fx-background-color: #F8F9FC;
+    -fx-text-fill: #2E3A59;
 }
 
-#sidebarVBox .button.active-button {
+.active-button {
     -fx-background-color: #e8f0fe;
     -fx-text-fill: #1976d2;
     -fx-font-weight: bold;
-}
-
-#logoImageView {
-    -fx-background-color: #e0e0e0;
-    -fx-min-width: 50px;
-    -fx-min-height: 50px;
-    -fx-max-width: 50px;
-    -fx-max-height: 50px;
-    -fx-background-radius: 25px;
 }
 
 #logoutButton {
@@ -50,252 +44,132 @@
     -fx-text-fill: #dc3545;
     -fx-font-size: 14px;
     -fx-alignment: CENTER_LEFT;
-    -fx-padding: 12px 20px;
-    -fx-min-width: 200px;
-    -fx-margin-top: auto;
+    -fx-padding: 12 20;
+    -fx-cursor: hand;
 }
 
 #logoutButton:hover {
     -fx-background-color: #ffebee;
 }
 
-#mainContentVBox {
-    -fx-background-color: #f5f5f5;
-    -fx-padding: 0;
-    -fx-spacing: 0;
+#supportButton {
+    -fx-background-color: #3b82f6;
+    -fx-background-radius: 20;
+    -fx-text-fill: WHITE;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
 }
 
 #topBarHBox {
     -fx-alignment: CENTER_LEFT;
-    -fx-spacing: 20px;
+    -fx-spacing: 15;
     -fx-background-color: white;
     -fx-border-color: #e0e0e0;
     -fx-border-width: 0 0 1px 0;
-    -fx-padding: 10px 0;
+    -fx-padding: 10 15;
 }
 
-#searchTextField {
-    -fx-pref-width: 300px;
-    -fx-pref-height: 38px;
+#searchTextField, #profileComboBox {
+    -fx-pref-height: 40px;
     -fx-background-color: #f5f5f5;
     -fx-background-radius: 20px;
-    -fx-border-color: transparent;
-    -fx-border-radius: 20px;
-    -fx-padding: 0 15px;
     -fx-font-size: 14px;
 }
 
-#searchTextField:focused {
-    -fx-background-color: white;
-    -fx-border-color: #1976d2;
-    -fx-border-width: 1px;
-}
-
-#notificationButton {
-    -fx-background-color: transparent;
-    -fx-font-size: 20px;
-    -fx-text-fill: #666666;
-    -fx-cursor: hand;
-    -fx-min-width: 40px;
-    -fx-min-height: 40px;
-    -fx-background-radius: 20px;
-}
-
-#notificationButton:hover {
-    -fx-background-color: #f0f0f0;
-}
-
-#profileComboBox {
-    -fx-pref-width: 150px;
-    -fx-pref-height: 38px;
-    -fx-background-color: #f5f5f5;
-    -fx-background-radius: 20px;
-    -fx-border-color: transparent;
-    -fx-border-radius: 20px;
-    -fx-padding: 0 10px;
+#ajouterEmployeesButton {
+    -fx-background-color: #3F8CFF;
+    -fx-text-fill: white;
     -fx-font-size: 14px;
-}
-
-#profileComboBox:hover {
-    -fx-background-color: #e8e8e8;
-}
-
-#headerHBox {
-    -fx-alignment: CENTER_LEFT;
-    -fx-spacing: 10px;
-    -fx-padding: 20px 15px 10px 15px;
-}
-
-#employeePageTitleText {
-    -fx-font-size: 24px;
     -fx-font-weight: bold;
-    -fx-fill: #333333;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
 }
 
 #employeesListView {
-    -fx-background-color: transparent;
-    -fx-border-width: 0;
-    -fx-padding: 10px 15px;
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 10;
+    -fx-padding: 5;
 }
 
 #employeesListView .list-cell {
-    -fx-background-color: white;
-    -fx-background-radius: 8px;
-    -fx-padding: 15px;
-    -fx-border-color: #e0e0e0;
-    -fx-border-width: 1px;
-    -fx-border-radius: 8px;
-    -fx-margin: 0 0 10px 0;
-}
-
-#employeesListView .list-cell:empty {
+    -fx-padding: 18 25;
+    -fx-font-size: 15px;
+    -fx-text-fill: #2E3A59;
     -fx-background-color: transparent;
-    -fx-border-width: 0;
+    -fx-border-color: transparent transparent #f1f3f9 transparent;
+    -fx-border-width: 0 0 1 0;
 }
 
-#employeesListView .list-cell:hover {
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
-    -fx-border-color: #bbbbbb;
+#employeesListView .list-cell:odd {
+    -fx-background-color: #fafbfc;
 }
 
-.employee-name {
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #333333;
+#employeesListView .list-cell:filled:hover {
+    -fx-background-color: #f0f4ff;
+    -fx-cursor: hand;
 }
 
-.employee-email {
-    -fx-font-size: 13px;
-    -fx-text-fill: #666666;
-}
-
-.employee-detail {
-    -fx-font-size: 13px;
-    -fx-text-fill: #555555;
-}
-
-.employee-detail-label {
-    -fx-font-size: 13px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #333333;
-}
-
-.employee-position {
-    -fx-font-size: 13px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #1976d2;
-    -fx-background-color: #e8f0fe;
-    -fx-background-radius: 20px;
-    -fx-padding: 4px 12px;
-}
-
-.junior-badge {
-    -fx-background-color: #e3f2fd;
-    -fx-text-fill: #1976d2;
-    -fx-background-radius: 20px;
-    -fx-padding: 4px 12px;
-    -fx-font-size: 12px;
+#employeesListView .list-cell:selected {
+    -fx-background-color: #3F8CFF;
+    -fx-text-fill: white;
     -fx-font-weight: bold;
 }
 
-.middle-badge {
-    -fx-background-color: #fff3e0;
-    -fx-text-fill: #f57c00;
-    -fx-background-radius: 20px;
-    -fx-padding: 4px 12px;
-    -fx-font-size: 12px;
-    -fx-font-weight: bold;
-}
-
-.senior-badge {
-    -fx-background-color: #e8f5e9;
-    -fx-text-fill: #388e3c;
-    -fx-background-radius: 20px;
-    -fx-padding: 4px 12px;
-    -fx-font-size: 12px;
-    -fx-font-weight: bold;
-}
-
-.gender-tag {
-    -fx-background-color: #f5f5f5;
-    -fx-background-radius: 4px;
-    -fx-padding: 2px 8px;
-    -fx-font-size: 12px;
-    -fx-text-fill: #666666;
-}
-
-.age-tag {
-    -fx-background-color: #e3f2fd;
-    -fx-background-radius: 4px;
-    -fx-padding: 2px 8px;
-    -fx-font-size: 12px;
-    -fx-text-fill: #1976d2;
-}
-
-.birthday-tag {
-    -fx-background-color: #fff3e0;
-    -fx-background-radius: 4px;
-    -fx-padding: 2px 8px;
-    -fx-font-size: 12px;
-    -fx-text-fill: #f57c00;
+#employeesListView:focused .list-cell:selected {
+    -fx-background-color: #3F8CFF;
 }
 
 #paginationHBox {
     -fx-alignment: CENTER_RIGHT;
-    -fx-spacing: 10px;
-    -fx-background-color: white;
-    -fx-border-color: #e0e0e0;
-    -fx-border-width: 1px 0 0 0;
-    -fx-padding: 15px;
-}
-
-#paginationLabel {
-    -fx-font-size: 14px;
-    -fx-text-fill: #666666;
+    -fx-spacing: 10;
+    -fx-padding: 15;
 }
 
 .pagination-button {
     -fx-background-color: white;
-    -fx-background-radius: 5px;
     -fx-border-color: #e0e0e0;
     -fx-border-radius: 5px;
-    -fx-min-width: 36px;
-    -fx-min-height: 36px;
-    -fx-font-size: 14px;
-    -fx-text-fill: #333333;
+    -fx-padding: 8 15;
     -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-text-fill: #6E707E;
 }
 
 .pagination-button:hover {
-    -fx-background-color: #f5f5f5;
-    -fx-border-color: #bbbbbb;
+    -fx-background-color: #f8f9fc;
+    -fx-border-color: #3F8CFF;
+    -fx-text-fill: #3F8CFF;
 }
 
-
-#ajouterEmployeesButton {
-    -fx-background-color: #3F8CFF;
-        -fx-text-fill: white;
-        -fx-font-size: 14px;
-        -fx-font-weight: bold;
-        -fx-padding: 10px 20px;
-        -fx-background-radius: 8px;
-        -fx-border-radius: 8px;
-        -fx-cursor: hand;
-        -fx-effect: dropshadow(gaussian, rgba(79, 70, 229, 0.3), 10, 0, 0, 2);
+#action-button {
+    -fx-background-color: #f8f9fc;
+    -fx-border-color: #d1d3e2;
+    -fx-border-radius: 6px;
+    -fx-border-width: 1px;
+    -fx-text-fill: #4e73df;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 6 14;
+    -fx-cursor: hand;
 }
 
-.pagination-button:pressed {
-    -fx-background-color: #e0e0e0;
+#action-button:hover {
+    -fx-background-color: #eaecf4;
+    -fx-border-color: #b7b9cc;
 }
 
-.employee-card {
-    -fx-background-color: white;
-    -fx-background-radius: 8px;
-    -fx-padding: 15px;
-    -fx-spacing: 8px;
+#delete-button {
+    -fx-background-color: #dc3545;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6px;
+    -fx-padding: 6 14;
+    -fx-cursor: hand;
 }
 
-.employee-divider {
-    -fx-stroke: #e0e0e0;
-    -fx-stroke-width: 1px;
+#delete-button:hover {
+    -fx-background-color: #bb2d3b;
 }

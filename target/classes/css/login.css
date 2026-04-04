@@ -1,17 +1,75 @@
-#infoPanel {
-    -fx-background-color :#3F8CFF ;
+#mainPanel {
+    -fx-background-color: #FFFFFF;
 }
 
-#loginButton{
-    -fx-background-color :#3F8CFF ;
-    -fx-background-radius: 20px;
+#infoPanel {
+    -fx-background-color: #0984E3;
+    -fx-border-color: #E0E0E0;
+    -fx-border-width: 0 1 0 0;
+}
+
+#loginHeader {
+    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-font-size: 22px;
+    -fx-text-fill: #333333;
+}
+
+#emailLabel, #passwordLabel {
+    -fx-fill: #666666;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+
+.text-field, .password-field {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #DCDDE1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 0 10;
+    -fx-cursor: text;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #0984E3;
+    -fx-border-width: 1.5;
+}
+
+#loginButton {
+    -fx-background-color: #0984E3;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+#loginButton:hover {
+    -fx-background-color: #0773C5;
+}
+
+.check-box {
+    -fx-text-fill: #636E72;
+    -fx-cursor: hand;
+}
+
+.hyperlink {
+    -fx-text-fill: #0984E3;
+    -fx-underline: false;
+    -fx-border-color: transparent;
+}
+
+.hyperlink:hover {
+    -fx-underline: true;
 }
 
 #exitButton {
-    -fx-background-color: transparent ;
+    -fx-background-color: transparent;
+    -fx-text-fill: #999999;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
 }
 
-#exitButton:hover{
-    -fx-background-color : RED ;
-    -fx-text-fill : WHITE ;
+#exitButton:hover {
+    -fx-text-fill: #D63031;
 }
