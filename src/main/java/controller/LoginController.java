@@ -1,5 +1,6 @@
 package controller;
 
+import dao.AdminDao;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -8,6 +9,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import model.Admin;
 import util.ViewNavigator;
 
 public class LoginController {
@@ -66,7 +68,11 @@ public class LoginController {
             return;
         }
 
-        ViewNavigator.switchScene(loginButton, "/view/dashboard-view.fxml", "Dashboard");
+        AdminDao adminDao = new AdminDao();
+        adminDao.findByEmailAndPassword(email, password).ifPresentOrElse(
+                (Admin admin) -> ViewNavigator.switchScene(loginButton, "/view/dashboard-view.fxml", "Dashboard"),
+                () -> ViewNavigator.showInformation("Login", "Invalid credentials. Please try again.")
+        );
     }
 }
 
