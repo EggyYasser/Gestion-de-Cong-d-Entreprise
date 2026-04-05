@@ -16,6 +16,11 @@ public final class ViewNavigator {
     private ViewNavigator() {
     }
 
+    public static void logout(Node sourceNode) {
+        SessionContext.clear();
+        switchScene(sourceNode, "/view/login-view.fxml", "Login");
+    }
+
     public static void switchScene(Node sourceNode, String fxmlPath, String title) {
         Parent root = loadView(fxmlPath);
         Stage stage = (Stage) sourceNode.getScene().getWindow();

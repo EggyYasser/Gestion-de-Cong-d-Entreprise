@@ -3,19 +3,14 @@ package controller;
 import dao.AdminDao;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.HBox;
 import model.Admin;
+import util.SessionContext;
 import util.ViewNavigator;
 
 public class LoginController {
-
-    @FXML
-    private Hyperlink createAccountLink;
 
     @FXML
     private TextField emailField;
@@ -24,38 +19,21 @@ public class LoginController {
     private Button exitButton;
 
     @FXML
-    private Hyperlink forgotPasswordLink;
-
-    @FXML
-    private Pane infoPanel;
-
-    @FXML
     private Button loginButton;
 
     @FXML
-    private AnchorPane mainPanel;
+    private HBox mainPanel;
 
     @FXML
     private PasswordField passwordField;
 
     @FXML
-    private CheckBox rememberMeCheckBox;
-
-    @FXML
     private void initialize() {
         loginButton.setOnAction(event -> handleLogin());
-        createAccountLink.setOnAction(event -> ViewNavigator.showInformation(
-                "Create Account",
-                "Account creation is not available yet in version 1."
-        ));
-        forgotPasswordLink.setOnAction(event -> ViewNavigator.showInformation(
-                "Forgot Password",
-                "Password recovery is not connected yet."
-        ));
     }
 
     @FXML
-    private void exit(){
+    private void exit() {
         System.exit(0);
     }
 
@@ -70,9 +48,11 @@ public class LoginController {
 
         AdminDao adminDao = new AdminDao();
         adminDao.findByEmailAndPassword(email, password).ifPresentOrElse(
-                (Admin admin) -> ViewNavigator.switchScene(loginButton, "/view/dashboard-view.fxml", "Dashboard"),
+                (Admin admin) -> {
+                    SessionContext.setCurrentAdmin(admin);
+                    ViewNavigator.switchScene(loginButton, "/view/dashboard-view.fxml", "Dashboard");
+                },
                 () -> ViewNavigator.showInformation("Login", "Invalid credentials. Please try again.")
         );
     }
 }
-

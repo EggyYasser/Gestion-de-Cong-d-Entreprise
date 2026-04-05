@@ -1,48 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainPanel" prefHeight="500.0" prefWidth="750.0" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+<HBox fx:id="mainPanel" maxHeight="Infinity" maxWidth="Infinity" minHeight="400.0" minWidth="700.0" prefHeight="700.0" prefWidth="1100.0" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
     <children>
-        <Label fx:id="loginHeader" layoutX="465.0" layoutY="80.0" text="Log in to Workroom" />
-
-        <Text fx:id="emailLabel" layoutX="465.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email Address" />
-        <TextField fx:id="emailField" layoutX="465.0" layoutY="155.0" prefHeight="35.0" prefWidth="240.0" promptText="name@company.com" />
-
-        <Text fx:id="passwordLabel" layoutX="465.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
-        <PasswordField fx:id="passwordField" layoutX="465.0" layoutY="245.0" prefHeight="35.0" prefWidth="240.0" promptText="••••••••" />
-
-        <CheckBox fx:id="rememberMeCheckBox" layoutX="465.0" layoutY="295.0" mnemonicParsing="false" text="Keep me logged in" />
-        <Hyperlink fx:id="forgotPasswordLink" layoutX="605.0" layoutY="292.0" text="Forgot password?" />
-
-        <Button fx:id="loginButton" layoutX="465.0" layoutY="350.0" prefHeight="40.0" prefWidth="240.0" text="Sign In" />
-        <Hyperlink fx:id="createAccountLink" layoutX="515.0" layoutY="415.0" text="Don't have an account? Sign up" />
-
-        <Pane fx:id="infoPanel" prefHeight="500.0" prefWidth="400.0">
+        <VBox fx:id="infoPanel" alignment="CENTER" minWidth="360.0" spacing="32.0" HBox.hgrow="ALWAYS">
             <children>
-                <ImageView fx:id="logoView" fitHeight="150.0" fitWidth="300.0" layoutX="50.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="logoView" fitHeight="150.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../img/Logo.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="illustrationView" fitHeight="220.0" fitWidth="250.0" layoutX="75.0" layoutY="240.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="illustrationView" fitHeight="220.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../img/login-img.png" />
                     </image>
                 </ImageView>
             </children>
-        </Pane>
-
-        <Button fx:id="exitButton" layoutX="699.0" layoutY="10.0" mnemonicParsing="false" onAction="#exit" prefHeight="30.0" prefWidth="47.0" text="✕" />
+        </VBox>
+        <StackPane minWidth="400.0" styleClass="login-form-region" HBox.hgrow="ALWAYS">
+            <children>
+                <VBox alignment="CENTER" maxWidth="320.0" spacing="18.0" StackPane.alignment="CENTER">
+                    <children>
+                        <Label fx:id="loginHeader" text="Log in to Workroom" />
+                        <VBox spacing="6.0">
+                            <children>
+                                <Text fx:id="emailLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Email Address" />
+                                <TextField fx:id="emailField" prefHeight="35.0" prefWidth="280.0" promptText="name@company.com" />
+                            </children>
+                        </VBox>
+                        <VBox spacing="6.0">
+                            <children>
+                                <Text fx:id="passwordLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
+                                <PasswordField fx:id="passwordField" prefHeight="35.0" prefWidth="280.0" promptText="••••••••" />
+                            </children>
+                        </VBox>
+                        <Button fx:id="loginButton" defaultButton="true" prefHeight="40.0" prefWidth="280.0" text="Sign In" />
+                    </children>
+                </VBox>
+                <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exit" prefHeight="30.0" prefWidth="47.0" text="✕" StackPane.alignment="TOP_RIGHT">
+                    <StackPane.margin>
+                        <Insets right="12.0" top="12.0" />
+                    </StackPane.margin>
+                </Button>
+            </children>
+        </StackPane>
     </children>
-</AnchorPane>
+</HBox>

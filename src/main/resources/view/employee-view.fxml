@@ -59,8 +59,8 @@
     <Region VBox.vgrow="ALWAYS" />
 
     <HBox alignment="CENTER_RIGHT" spacing="12.0">
-        <Button styleClass="btn-close" text="Close" />
-        <Button styleClass="btn-delete" text="Delete Account" />
+        <Button fx:id="closeButton" onAction="#onClose" styleClass="btn-close" text="Close" />
+        <Button fx:id="deleteButton" onAction="#onDeleteAccount" styleClass="btn-delete" text="Delete Account" />
     </HBox>
 
 </VBox>

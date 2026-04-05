@@ -1,25 +1,50 @@
 package controller;
 
+import com.gestionconges.Main;
+import dao.EmployeeDao;
+import dao.LeaveRequestDao;
+import enums.LeaveRequestStatus;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Employee;
 import util.ViewNavigator;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 
 public class MenuEmployeeController {
 
+    private static final int PAGE_SIZE = 10;
 
+    private final EmployeeDao employeeDao = new EmployeeDao();
+    private final LeaveRequestDao leaveRequestDao = new LeaveRequestDao();
 
+    private final List<Employee> masterList = new ArrayList<>();
+    private int currentPage = 0;
 
     @FXML
     private Button abandonnementlButton;
@@ -40,7 +65,7 @@ public class MenuEmployeeController {
     private Button employeesButton;
 
     @FXML
-    private ListView<String> employeesListView;
+    private ListView<Employee> employeesListView;
 
     @FXML
     private HBox headerHBox;
@@ -93,30 +118,84 @@ public class MenuEmployeeController {
         profileComboBox.getSelectionModel().selectFirst();
 
         setupCustomListView();
+        reloadFromDatabase();
 
-        employeesListView.setItems(FXCollections.observableArrayList(
-                "EMP001 - Ahmed Benali - HR",
-                "EMP002 - Sara Boussaid - Finance",
-                "EMP003 - Yacine Merabet - IT",
-                "EMP004 - Lina Kaci - Marketing"
-        ));
-        employeePageTitleText.setText("Employees (" + employeesListView.getItems().size() + ")");
-        paginationLabel.setText("1-" + employeesListView.getItems().size() + " of " + employeesListView.getItems().size());
+        searchTextField.textProperty().addListener((obs, o, n) -> {
+            currentPage = 0;
+            applyView();
+        });
 
         dashboardButton.setOnAction(event -> ViewNavigator.switchScene(dashboardButton, "/view/dashboard-view.fxml", "Dashboard"));
         congeesButton.setOnAction(event -> ViewNavigator.switchScene(congeesButton, "/view/menu-conges-view.fxml", "Leave Requests"));
         employeesButton.setOnAction(event -> ViewNavigator.switchScene(employeesButton, "/view/menu-emlpoyees-view.fxml", "Employees"));
         supportButton.setOnAction(event -> ViewNavigator.openModal(supportButton, "/view/support-view.fxml", "Support"));
-        logoutButton.setOnAction(event -> ViewNavigator.switchScene(logoutButton, "/view/login-view.fxml", "Login"));
-        ajouterEmployeesButton.setOnAction(event -> ViewNavigator.openModal(ajouterEmployeesButton, "/view/add-employee.fxml", "Add Employee"));
+        logoutButton.setOnAction(event -> ViewNavigator.logout(logoutButton));
+        ajouterEmployeesButton.setOnAction(event -> {
+            ViewNavigator.openModal(ajouterEmployeesButton, "/view/add-employee.fxml", "Add Employee");
+            reloadFromDatabase();
+        });
         abandonnementlButton.setOnAction(event -> ViewNavigator.showInformation("Abandonment", "This module is outside version 1."));
-        notificationButton.setOnAction(event -> ViewNavigator.showInformation("Notifications", "No notifications available."));
-        prevPageButton.setOnAction(event -> ViewNavigator.showInformation("Pagination", "You are already on the first page."));
-        nextPageButton.setOnAction(event -> ViewNavigator.showInformation("Pagination", "There are no more pages yet."));
+        notificationButton.setOnAction(event -> {
+            long pending = leaveRequestDao.findByStatus(LeaveRequestStatus.PENDING).size();
+            ViewNavigator.showInformation("Notifications", pending + " leave request(s) pending approval.");
+        });
+        prevPageButton.setOnAction(event -> {
+            if (currentPage > 0) {
+                currentPage--;
+                applyView();
+            }
+        });
+        nextPageButton.setOnAction(event -> {
+            currentPage++;
+            applyView();
+        });
+    }
+
+    private void reloadFromDatabase() {
+        masterList.clear();
+        masterList.addAll(employeeDao.findAll());
+        applyView();
+    }
+
+    private void applyView() {
+        String q = searchTextField.getText() == null ? "" : searchTextField.getText().trim().toLowerCase(Locale.ROOT);
+        List<Employee> filtered = masterList.stream().filter(e -> matchesSearch(e, q)).toList();
+        int total = filtered.size();
+        int maxPage = total == 0 ? 0 : (total - 1) / PAGE_SIZE;
+        if (currentPage > maxPage) {
+            currentPage = maxPage;
+        }
+        int from = total == 0 ? 0 : currentPage * PAGE_SIZE;
+        int to = Math.min(from + PAGE_SIZE, total);
+        List<Employee> pageItems = from < to ? filtered.subList(from, to) : List.of();
+        employeesListView.setItems(FXCollections.observableArrayList(pageItems));
+        employeePageTitleText.setText("Employees (" + total + ")");
+        if (total == 0) {
+            paginationLabel.setText("0 of 0");
+        } else {
+            paginationLabel.setText((from + 1) + "-" + to + " of " + total);
+        }
+        prevPageButton.setDisable(currentPage <= 0);
+        nextPageButton.setDisable(to >= total);
+    }
+
+    private static boolean matchesSearch(Employee e, String q) {
+        if (q.isEmpty()) {
+            return true;
+        }
+        return contains(e.getEmployeeCode(), q)
+                || contains(e.getFirstName(), q)
+                || contains(e.getLastName(), q)
+                || contains(e.getEmail(), q)
+                || contains(e.getDepartment(), q);
+    }
+
+    private static boolean contains(String value, String q) {
+        return value != null && value.toLowerCase(Locale.ROOT).contains(q);
     }
 
     private void setupCustomListView() {
-        employeesListView.setCellFactory(param -> new ListCell<String>() {
+        employeesListView.setCellFactory(param -> new ListCell<>() {
             private final HBox root = new HBox(15);
             private final Label label = new Label();
             private final Region spacer = new Region();
@@ -127,56 +206,72 @@ public class MenuEmployeeController {
                 root.setAlignment(Pos.CENTER_LEFT);
                 HBox.setHgrow(spacer, Priority.ALWAYS);
                 root.setPadding(new javafx.geometry.Insets(5, 10, 5, 10));
-
-
                 actionBtn.setId("action-button");
                 deleteBtn.setId("delete-button");
-
                 root.getChildren().addAll(label, spacer, actionBtn, deleteBtn);
 
                 deleteBtn.setOnAction(event -> {
-                    String item = getItem();
-                    if (item != null) {
-                        getListView().getItems().remove(item);
+                    Employee item = getItem();
+                    if (item == null) {
+                        return;
+                    }
+                    Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirm.setTitle("Delete employee");
+                    confirm.setHeaderText(null);
+                    confirm.setContentText("Delete " + item.getEmployeeCode() + " — " + item.getFirstName() + " " + item.getLastName() + "?");
+                    Optional<ButtonType> result = confirm.showAndWait();
+                    if (result.isPresent() && result.get() == ButtonType.OK) {
+                        if (employeeDao.delete(item.getId())) {
+                            reloadFromDatabase();
+                        } else {
+                            ViewNavigator.showInformation("Employees", "Could not delete employee.");
+                        }
                     }
                 });
 
                 actionBtn.setOnAction(event -> {
-                    try {
-
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/employee-view.fxml"));
-                        Parent root = loader.load();
-
-
-                        Stage detailsStage = new Stage();
-                        detailsStage.setTitle("Employee Details");
-
-
-                        detailsStage.initModality(Modality.APPLICATION_MODAL);
-                        detailsStage.initOwner(actionBtn.getScene().getWindow());
-
-
-                        Scene scene = new Scene(root);
-                        detailsStage.setScene(scene);
-                        detailsStage.showAndWait();
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    Employee item = getItem();
+                    if (item != null) {
+                        openEmployeeDetails(item);
                     }
                 });
-
             }
 
             @Override
-            protected void updateItem(String item, boolean empty) {
+            protected void updateItem(Employee item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
                     setGraphic(null);
                 } else {
-                    label.setText(item);
+                    String dept = item.getDepartment() == null ? "—" : item.getDepartment();
+                    label.setText(item.getEmployeeCode() + " — " + item.getFirstName() + " " + item.getLastName() + " — " + dept);
                     setGraphic(root);
                 }
             }
         });
-}
+    }
+
+    private void openEmployeeDetails(Employee employee) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/employee-view.fxml"));
+            Parent root = loader.load();
+            EmployeeController controller = loader.getController();
+            controller.initForEmployee(employee.getId(),
+                    msg -> ViewNavigator.showInformation("Employee", msg),
+                    this::reloadFromDatabase);
+            Stage detailsStage = new Stage();
+            detailsStage.setTitle("Employee details");
+            detailsStage.initModality(Modality.APPLICATION_MODAL);
+            detailsStage.initOwner(actionOwner());
+            detailsStage.setScene(new Scene(root));
+            detailsStage.showAndWait();
+            reloadFromDatabase();
+        } catch (IOException e) {
+            throw new IllegalStateException("Cannot open employee details", e);
+        }
+    }
+
+    private javafx.stage.Window actionOwner() {
+        return employeesListView.getScene() != null ? employeesListView.getScene().getWindow() : null;
+    }
 }

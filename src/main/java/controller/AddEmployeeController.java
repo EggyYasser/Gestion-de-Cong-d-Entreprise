@@ -1,5 +1,7 @@
 package controller;
 
+import dao.EmployeeDao;
+import enums.EmployeeStatus;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,9 +13,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.Employee;
 import util.ViewNavigator;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 public class AddEmployeeController {
+
+    private final EmployeeDao employeeDao = new EmployeeDao();
 
     @FXML
     private Button addEAddAnotherButton;
@@ -106,9 +113,50 @@ public class AddEmployeeController {
             ViewNavigator.showInformation("Add Employee", "Please fill in first name, last name, and email.");
             return;
         }
+        if (addEDepartmentCombo.getSelectionModel().getSelectedItem() == null) {
+            ViewNavigator.showInformation("Add Employee", "Please select a department.");
+            return;
+        }
 
-        ViewNavigator.showInformation("Add Employee", "Employee information captured successfully.");
-        closeWindow();
+        Employee employee = new Employee();
+        employee.setFirstName(addEFirstNameField.getText().trim());
+        employee.setLastName(addELastNameField.getText().trim());
+        employee.setBirthDate(addEBirthDatePicker.getValue());
+        employee.setHireDate(addEHireDatePicker.getValue());
+        employee.setDepartment(addEDepartmentCombo.getSelectionModel().getSelectedItem());
+        employee.setPosition(trimOrNull(addEPositionField.getText()));
+        employee.setEmail(addEEmailField.getText().trim());
+        employee.setPhone(trimOrNull(addEPhoneField.getText()));
+        employee.setStatus(EmployeeStatus.ACTIVE);
+
+        try {
+            employeeDao.insert(employee);
+            ViewNavigator.showInformation("Add Employee", "Employee saved as " + employee.getEmployeeCode() + ".");
+            closeWindow();
+        } catch (IllegalStateException ex) {
+            if (isDuplicateKeyError(ex)) {
+                ViewNavigator.showInformation("Add Employee", "Email or employee code already exists. Use a different email.");
+            } else {
+                ViewNavigator.showInformation("Add Employee", "Could not save: " + ex.getMessage());
+            }
+        }
+    }
+
+    private static boolean isDuplicateKeyError(IllegalStateException ex) {
+        for (Throwable t = ex.getCause(); t != null; t = t.getCause()) {
+            if (t instanceof SQLIntegrityConstraintViolationException) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static String trimOrNull(String s) {
+        if (s == null) {
+            return null;
+        }
+        String t = s.trim();
+        return t.isEmpty() ? null : t;
     }
 
     private boolean isBlank(TextField textField) {
