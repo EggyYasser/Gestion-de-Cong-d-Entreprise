@@ -1,13 +1,19 @@
 package controller;
 
+import com.gestionconges.Main;
+import com.gestionconges.SessionContext;
+import dao.EmployeeDao;
+import dao.LeaveBalanceDao;
 import dao.LeaveHistoryDao;
 import dao.LeaveRequestDao;
 import dao.LeaveTypeDao;
 import enums.LeaveRequestStatus;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
@@ -29,13 +35,16 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.Employee;
+import model.LeaveBalance;
 import model.LeaveHistory;
 import model.LeaveRequest;
 import model.LeaveType;
-import com.gestionconges.SessionContext;
 import util.ViewNavigator;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +55,8 @@ public class MenuCongesController {
 
     private final LeaveRequestDao leaveRequestDao = new LeaveRequestDao();
     private final LeaveHistoryDao leaveHistoryDao = new LeaveHistoryDao();
+    private final LeaveBalanceDao leaveBalanceDao = new LeaveBalanceDao();
+    private final EmployeeDao employeeDao = new EmployeeDao();
     private final LeaveTypeDao leaveTypeDao = new LeaveTypeDao();
 
     private final List<LeaveRequest> masterList = new ArrayList<>();
@@ -134,11 +145,12 @@ public class MenuCongesController {
         });
 
         addRequestButton.setOnAction(event -> {
-            ViewNavigator.openModal(addRequestButton, "/view/add-leave-request-view.fxml", "New leave request");
+            openCreateRequestDialogFallback();
             reloadFromDatabase();
         });
 
-        abonnementsButton.setOnAction(event -> ViewNavigator.showInformation("Abandonnement", "This module is outside version 1."));
+        // Not in current scope: keep visible, but no popup.
+        abonnementsButton.setDisable(true);
         notificationButton.setOnAction(event -> {
             long n = leaveRequestDao.findByStatus(LeaveRequestStatus.PENDING).size();
             ViewNavigator.showInformation("Notifications", n + " leave request(s) pending.");
@@ -245,8 +257,7 @@ public class MenuCongesController {
 
     private void handleAction(LeaveRequest request) {
         if (request.getStatus() != LeaveRequestStatus.PENDING) {
-            ViewNavigator.showInformation("Leave request",
-                    "This request is already " + request.getStatus() + ". No approval action is available.");
+            showReadOnlyActions(request);
             return;
         }
         Long adminId = SessionContext.getCurrentAdmin()
@@ -271,6 +282,14 @@ public class MenuCongesController {
         }
         if (choice.get().equals(approve)) {
             if (leaveRequestDao.updateStatus(request.getId(), LeaveRequestStatus.APPROVED, adminId, null)) {
+                long duration = request.calculateDuration();
+                if (duration > 0) {
+                    leaveBalanceDao.applyApprovedLeaveDays(
+                            request.getEmployee().getId(),
+                            request.getStartDate().getYear(),
+                            duration
+                    );
+                }
                 recordHistory(request, "REQUEST_APPROVED", "Admin approved the leave request");
                 reloadFromDatabase();
                 ViewNavigator.showInformation("Leave request", "Request approved.");
@@ -288,6 +307,169 @@ public class MenuCongesController {
                 ViewNavigator.showInformation("Leave request", "Request rejected.");
             }
         }
+    }
+
+    private void showReadOnlyActions(LeaveRequest request) {
+        ButtonType viewBalance = new ButtonType("View Balance");
+        ButtonType viewHistory = new ButtonType("View History");
+        ButtonType close = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Alert info = new Alert(Alert.AlertType.INFORMATION);
+        info.setTitle("Leave request");
+        info.setHeaderText(null);
+        info.setContentText("This request is " + request.getStatus() + ".");
+        info.getButtonTypes().setAll(viewBalance, viewHistory, close);
+        Optional<ButtonType> choice = info.showAndWait();
+        if (choice.isEmpty()) {
+            return;
+        }
+        if (choice.get().equals(viewBalance)) {
+            openBalanceModal(request.getEmployee());
+        } else if (choice.get().equals(viewHistory)) {
+            openHistoryModal(request.getEmployee());
+        }
+    }
+
+    private void openBalanceModal(Employee employee) {
+        List<LeaveBalance> balances = leaveBalanceDao.findByEmployeeId(employee.getId());
+        if (balances.isEmpty()) {
+            ViewNavigator.showInformation("Leave balance", "No leave balance found for this employee.");
+            return;
+        }
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/leave-balance-view.fxml"));
+            Parent root = loader.load();
+            LeaveBalanceController controller = loader.getController();
+            controller.initData(employee, balances);
+            Stage modal = new Stage();
+            modal.setTitle("Leave balance");
+            modal.initOwner(mainBorderPane.getScene().getWindow());
+            modal.initModality(Modality.APPLICATION_MODAL);
+            modal.setScene(new javafx.scene.Scene(root));
+            modal.setResizable(false);
+            modal.showAndWait();
+        } catch (IOException e) {
+            throw new IllegalStateException("Cannot open leave balance view", e);
+        }
+    }
+
+    private void openHistoryModal(Employee employee) {
+        List<LeaveHistory> history = leaveHistoryDao.findByEmployeeId(employee.getId());
+        if (history.isEmpty()) {
+            ViewNavigator.showInformation("Leave history", "No leave history found for this employee.");
+            return;
+        }
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/leave-history-view.fxml"));
+            Parent root = loader.load();
+            LeaveHistoryController controller = loader.getController();
+            controller.initData(employee, history);
+            Stage modal = new Stage();
+            modal.setTitle("Leave history");
+            modal.initOwner(mainBorderPane.getScene().getWindow());
+            modal.initModality(Modality.APPLICATION_MODAL);
+            modal.setScene(new javafx.scene.Scene(root));
+            modal.setResizable(false);
+            modal.showAndWait();
+        } catch (IOException e) {
+            throw new IllegalStateException("Cannot open leave history view", e);
+        }
+    }
+
+    private void openCreateRequestDialogFallback() {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("New leave request");
+        dialog.setHeaderText(null);
+
+        ComboBox<Employee> employeeCombo = new ComboBox<>(FXCollections.observableArrayList(employeeDao.findAll()));
+        employeeCombo.setCellFactory(lv -> new ListCell<>() {
+            @Override
+            protected void updateItem(Employee item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? null : item.getEmployeeCode() + " — " + item.getFirstName() + " " + item.getLastName());
+            }
+        });
+        employeeCombo.setButtonCell(new ListCell<>() {
+            @Override
+            protected void updateItem(Employee item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? null : item.getEmployeeCode() + " — " + item.getFirstName() + " " + item.getLastName());
+            }
+        });
+
+        ComboBox<LeaveType> typeCombo = new ComboBox<>(FXCollections.observableArrayList(leaveTypeDao.findAll()));
+        typeCombo.setCellFactory(lv -> new ListCell<>() {
+            @Override
+            protected void updateItem(LeaveType item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? null : item.getName());
+            }
+        });
+        typeCombo.setButtonCell(new ListCell<>() {
+            @Override
+            protected void updateItem(LeaveType item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? null : item.getName());
+            }
+        });
+
+        DatePicker startPicker = new DatePicker();
+        DatePicker endPicker = new DatePicker();
+        TextArea reasonArea = new TextArea();
+        reasonArea.setPrefRowCount(3);
+        reasonArea.setWrapText(true);
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.addRow(0, new Label("Employee"), employeeCombo);
+        grid.addRow(1, new Label("Leave type"), typeCombo);
+        grid.addRow(2, new Label("Start date"), startPicker);
+        grid.addRow(3, new Label("End date"), endPicker);
+        grid.addRow(4, new Label("Reason"), reasonArea);
+        dialog.getDialogPane().setContent(grid);
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+        Optional<ButtonType> result = dialog.showAndWait();
+        if (result.isEmpty() || result.get() != ButtonType.OK) {
+            return;
+        }
+
+        Employee emp = employeeCombo.getSelectionModel().getSelectedItem();
+        LeaveType type = typeCombo.getSelectionModel().getSelectedItem();
+        LocalDate start = startPicker.getValue();
+        LocalDate end = endPicker.getValue();
+        if (emp == null || type == null || start == null || end == null) {
+            ViewNavigator.showInformation("Leave request", "Please fill all required fields.");
+            return;
+        }
+        if (end.isBefore(start)) {
+            ViewNavigator.showInformation("Leave request", "End date cannot be before start date.");
+            return;
+        }
+
+        LeaveRequest req = new LeaveRequest();
+        req.setEmployee(emp);
+        req.setLeaveType(type);
+        req.setRequestDate(LocalDate.now());
+        req.setStartDate(start);
+        req.setEndDate(end);
+        String reason = reasonArea.getText() == null ? "" : reasonArea.getText().trim();
+        req.setReason(reason.isEmpty() ? null : reason);
+        req.setStatus(LeaveRequestStatus.PENDING);
+        req.setProcessedBy(null);
+        req.setRejectionComment(null);
+
+        long newId = leaveRequestDao.insert(req);
+        LeaveHistory history = new LeaveHistory();
+        history.setEmployee(emp);
+        LeaveRequest ref = new LeaveRequest();
+        ref.setId(newId);
+        history.setLeaveRequest(ref);
+        history.setAction("REQUEST_CREATED");
+        history.setActionDate(LocalDate.now());
+        history.setNote("Leave request created from leave page fallback dialog");
+        leaveHistoryDao.insert(history);
+        ViewNavigator.showInformation("Leave request", "Request submitted.");
     }
 
     private void handleModify(LeaveRequest request) {

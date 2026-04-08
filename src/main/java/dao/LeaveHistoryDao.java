@@ -1,25 +1,77 @@
 package dao;
 
 import database.DatabaseConnection;
+import model.Employee;
 import model.LeaveHistory;
+import model.LeaveRequest;
 
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class LeaveHistoryDao {
 
     public Optional<LeaveHistory> findById(long id) {
+        final String sql = """
+                SELECT id, employee_id, leave_request_id, action, action_date, note
+                FROM leave_history
+                WHERE id = ?
+                """;
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, id);
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    return Optional.of(mapRow(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new IllegalStateException("Failed to load leave history " + id, e);
+        }
         return Optional.empty();
     }
 
     public List<LeaveHistory> findAll() {
-        return Collections.emptyList();
+        final String sql = """
+                SELECT id, employee_id, leave_request_id, action, action_date, note
+                FROM leave_history
+                ORDER BY action_date DESC, id DESC
+                """;
+        return queryList(sql, null);
+    }
+
+    public List<LeaveHistory> findByEmployeeId(long employeeId) {
+        final String sql = """
+                SELECT id, employee_id, leave_request_id, action, action_date, note
+                FROM leave_history
+                WHERE employee_id = ?
+                ORDER BY action_date DESC, id DESC
+                """;
+        return queryList(sql, employeeId);
+    }
+
+    private List<LeaveHistory> queryList(String sql, Long employeeId) {
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            if (employeeId != null) {
+                statement.setLong(1, employeeId);
+            }
+            try (ResultSet rs = statement.executeQuery()) {
+                List<LeaveHistory> list = new ArrayList<>();
+                while (rs.next()) {
+                    list.add(mapRow(rs));
+                }
+                return list;
+            }
+        } catch (SQLException e) {
+            throw new IllegalStateException("Failed to list leave history", e);
+        }
     }
 
     public long insert(LeaveHistory history) {
@@ -56,5 +108,24 @@ public class LeaveHistoryDao {
 
     public boolean delete(long id) {
         return false;
+    }
+
+    private LeaveHistory mapRow(ResultSet rs) throws SQLException {
+        LeaveHistory h = new LeaveHistory();
+        h.setId(rs.getLong("id"));
+        Employee e = new Employee();
+        e.setId(rs.getLong("employee_id"));
+        h.setEmployee(e);
+        long requestId = rs.getLong("leave_request_id");
+        if (!rs.wasNull()) {
+            LeaveRequest request = new LeaveRequest();
+            request.setId(requestId);
+            h.setLeaveRequest(request);
+        }
+        h.setAction(rs.getString("action"));
+        Date ad = rs.getDate("action_date");
+        h.setActionDate(ad != null ? ad.toLocalDate() : null);
+        h.setNote(rs.getString("note"));
+        return h;
     }
 }

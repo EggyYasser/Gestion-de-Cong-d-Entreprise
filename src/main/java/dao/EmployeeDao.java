@@ -122,6 +122,30 @@ public class EmployeeDao {
         }
     }
 
+    public boolean deactivate(long id) {
+        final String sql = "UPDATE employees SET status = ? WHERE id = ?";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, EmployeeStatus.INACTIVE.name());
+            statement.setLong(2, id);
+            return statement.executeUpdate() == 1;
+        } catch (SQLException e) {
+            throw new IllegalStateException("Failed to deactivate employee", e);
+        }
+    }
+
+    public boolean activate(long id) {
+        final String sql = "UPDATE employees SET status = ? WHERE id = ?";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, EmployeeStatus.ACTIVE.name());
+            statement.setLong(2, id);
+            return statement.executeUpdate() == 1;
+        } catch (SQLException e) {
+            throw new IllegalStateException("Failed to activate employee", e);
+        }
+    }
+
     private void bindWritable(PreparedStatement statement, Employee employee) throws SQLException {
         int i = 1;
         statement.setString(i++, employee.getEmployeeCode());

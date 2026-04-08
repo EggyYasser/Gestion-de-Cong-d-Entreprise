@@ -27,6 +27,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import enums.EmployeeStatus;
 import model.Employee;
 import util.ViewNavigator;
 
@@ -39,6 +40,10 @@ import java.util.Optional;
 public class MenuEmployeeController {
 
     private static final int PAGE_SIZE = 10;
+    private static final String RED_BUTTON_STYLE =
+            "-fx-background-color: #dc3545; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;";
+    private static final String GREEN_BUTTON_STYLE =
+            "-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;";
 
     private final EmployeeDao employeeDao = new EmployeeDao();
     private final LeaveRequestDao leaveRequestDao = new LeaveRequestDao();
@@ -134,7 +139,8 @@ public class MenuEmployeeController {
             ViewNavigator.openModal(ajouterEmployeesButton, "/view/add-employee.fxml", "Add Employee");
             reloadFromDatabase();
         });
-        abandonnementlButton.setOnAction(event -> ViewNavigator.showInformation("Abandonment", "This module is outside version 1."));
+        // Not in current scope: keep visible, but no popup.
+        abandonnementlButton.setDisable(true);
         notificationButton.setOnAction(event -> {
             long pending = leaveRequestDao.findByStatus(LeaveRequestStatus.PENDING).size();
             ViewNavigator.showInformation("Notifications", pending + " leave request(s) pending approval.");
@@ -200,31 +206,34 @@ public class MenuEmployeeController {
             private final Label label = new Label();
             private final Region spacer = new Region();
             private final Button actionBtn = new Button("Action");
-            private final Button deleteBtn = new Button("Delete");
+            private final Button statusBtn = new Button("Deactivate");
 
             {
                 root.setAlignment(Pos.CENTER_LEFT);
                 HBox.setHgrow(spacer, Priority.ALWAYS);
                 root.setPadding(new javafx.geometry.Insets(5, 10, 5, 10));
                 actionBtn.setId("action-button");
-                deleteBtn.setId("delete-button");
-                root.getChildren().addAll(label, spacer, actionBtn, deleteBtn);
+                statusBtn.setId("delete-button");
+                root.getChildren().addAll(label, spacer, actionBtn, statusBtn);
 
-                deleteBtn.setOnAction(event -> {
+                statusBtn.setOnAction(event -> {
                     Employee item = getItem();
                     if (item == null) {
                         return;
                     }
+                    boolean inactive = item.getStatus() == EmployeeStatus.INACTIVE;
+                    String targetStatus = inactive ? "ACTIVE" : "INACTIVE";
                     Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-                    confirm.setTitle("Delete employee");
+                    confirm.setTitle((inactive ? "Activate" : "Deactivate") + " employee");
                     confirm.setHeaderText(null);
-                    confirm.setContentText("Delete " + item.getEmployeeCode() + " — " + item.getFirstName() + " " + item.getLastName() + "?");
+                    confirm.setContentText("Set " + item.getEmployeeCode() + " to " + targetStatus + "?");
                     Optional<ButtonType> result = confirm.showAndWait();
                     if (result.isPresent() && result.get() == ButtonType.OK) {
-                        if (employeeDao.delete(item.getId())) {
+                        boolean updated = inactive ? employeeDao.activate(item.getId()) : employeeDao.deactivate(item.getId());
+                        if (updated) {
                             reloadFromDatabase();
                         } else {
-                            ViewNavigator.showInformation("Employees", "Could not delete employee.");
+                            ViewNavigator.showInformation("Employees", "Could not update employee status.");
                         }
                     }
                 });
@@ -244,7 +253,11 @@ public class MenuEmployeeController {
                     setGraphic(null);
                 } else {
                     String dept = item.getDepartment() == null ? "—" : item.getDepartment();
-                    label.setText(item.getEmployeeCode() + " — " + item.getFirstName() + " " + item.getLastName() + " — " + dept);
+                    String status = item.getStatus() == null ? "UNKNOWN" : item.getStatus().name();
+                    label.setText(item.getEmployeeCode() + " — " + item.getFirstName() + " " + item.getLastName() + " — " + dept + " — " + status);
+                    boolean inactive = item.getStatus() == EmployeeStatus.INACTIVE;
+                    statusBtn.setText(inactive ? "Activate" : "Deactivate");
+                    statusBtn.setStyle(inactive ? GREEN_BUTTON_STYLE : RED_BUTTON_STYLE);
                     setGraphic(root);
                 }
             }

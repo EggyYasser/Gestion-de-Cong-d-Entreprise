@@ -162,7 +162,8 @@ public class DashboardController {
         congesButton.setOnAction(event -> ViewNavigator.switchScene(congesButton, "/view/menu-conges-view.fxml", "Leave Requests"));
         btnSupport.setOnAction(event -> ViewNavigator.openModal(btnSupport, "/view/support-view.fxml", "Support"));
         btnLogout.setOnAction(event -> ViewNavigator.logout(btnLogout));
-        abonnementsButton.setOnAction(event -> ViewNavigator.showInformation("Abonnement", "This module is not included in version 1."));
+        // Not in current scope: keep visible, but no popup.
+        abonnementsButton.setDisable(true);
         btnNotifications.setOnAction(event -> {
             long pending = leaveRequestDao.findByStatus(LeaveRequestStatus.PENDING).size();
             ViewNavigator.showInformation("Notifications", pending + " leave request(s) waiting for approval.");

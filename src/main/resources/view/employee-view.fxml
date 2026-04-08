@@ -58,9 +58,15 @@
 
     <Region VBox.vgrow="ALWAYS" />
 
+    <HBox alignment="CENTER_LEFT" spacing="10.0">
+        <Button fx:id="editButton" onAction="#onEditEmployee" styleClass="btn-close" text="Edit" />
+        <Button fx:id="balanceButton" onAction="#onViewLeaveBalance" styleClass="btn-close" text="Leave Balance" />
+        <Button fx:id="historyButton" onAction="#onViewLeaveHistory" styleClass="btn-close" text="Leave History" />
+    </HBox>
+
     <HBox alignment="CENTER_RIGHT" spacing="12.0">
         <Button fx:id="closeButton" onAction="#onClose" styleClass="btn-close" text="Close" />
-        <Button fx:id="deleteButton" onAction="#onDeleteAccount" styleClass="btn-delete" text="Delete Account" />
+        <Button fx:id="deleteButton" onAction="#onDeactivateEmployee" styleClass="btn-delete" text="Deactivate" />
     </HBox>
 
 </VBox>
