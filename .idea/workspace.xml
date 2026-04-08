@@ -4,54 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0318223a-3ffa-41c4-be7e-1bb0594b9408" name="Changes" comment="Added Database for the app">
-      <change afterPath="$PROJECT_DIR$/sql/leave_management_system.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/controller/AddLeaveRequestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/util/SessionContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/view/add-leave-request-view.fxml" afterDir="false" />
+    <list default="true" id="0318223a-3ffa-41c4-be7e-1bb0594b9408" name="Changes" comment="adding functionality to button + request">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/AddEmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/AddEmployeeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/DashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/EmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/EmployeeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/MenuCongesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/MenuCongesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/MenuEmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/MenuEmployeeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/EmployeeDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/EmployeeDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/LeaveHistoryDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/LeaveHistoryDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/LeaveRequestDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/LeaveRequestDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/LeaveTypeDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/LeaveTypeDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/ViewNavigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/ViewNavigator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/employee-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/employee-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/login-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/gestionconges/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/gestionconges/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/AddEmployeeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/AddEmployeeController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/DashboardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/DashboardController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/EmployeeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/EmployeeController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/LoginController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuCongesController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuCongesController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuCongesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuCongesController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuEmployeeController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuEmployeeController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuEmployeeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuEmployeeController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/SupportController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/SupportController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/css/login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/dao/EmployeeDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/EmployeeDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/dao/LeaveBalanceDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/LeaveBalanceDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/dao/LeaveHistoryDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/LeaveHistoryDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/dao/LeaveRequestDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/LeaveRequestDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/dao/LeaveTypeDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/LeaveTypeDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/DatabaseConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/DatabaseConnection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/enums/EmployeeStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/enums/EmployeeStatus.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/enums/LeaveRequestStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/enums/LeaveRequestStatus.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/Admin.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/Admin.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/Employee.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/Employee.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/LeaveBalance.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/LeaveBalance.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/LeaveHistory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/LeaveHistory.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/LeaveRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/LeaveRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/LeaveType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/LeaveType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/util/ViewNavigator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/util/ViewNavigator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/login-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -276,7 +230,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775347954620</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="adding functionality to button + request">
+      <option name="closed" value="true" />
+      <created>1775351995866</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1775351995866</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -305,6 +267,7 @@
     <MESSAGE value="UI improvements" />
     <MESSAGE value="add buttons for modify action and supp for menu-conges" />
     <MESSAGE value="Added Database for the app" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Database for the app" />
+    <MESSAGE value="adding functionality to button + request" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding functionality to button + request" />
   </component>
 </project>
