@@ -13,6 +13,7 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
     <Label fx:id="headerLabel" styleClass="name-header" text="Leave Balance" />
+    <Label fx:id="totalSummaryLabel" wrapText="true" text="Total available: —" />
     <ListView fx:id="balanceListView" VBox.vgrow="ALWAYS" />
     <HBox alignment="CENTER_RIGHT">
         <Region HBox.hgrow="ALWAYS" />

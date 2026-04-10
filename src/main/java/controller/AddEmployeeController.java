@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Employee;
+import util.DepartmentOptions;
 import util.ViewNavigator;
 
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -93,12 +94,7 @@ public class AddEmployeeController {
 
     @FXML
     private void initialize() {
-        addEDepartmentCombo.setItems(FXCollections.observableArrayList(
-                "Human Resources",
-                "Finance",
-                "IT",
-                "Marketing"
-        ));
+        addEDepartmentCombo.setItems(FXCollections.observableArrayList(DepartmentOptions.all()));
 
         addECancelButton.setOnAction(event -> closeWindow());
         addEAddAnotherButton.setOnAction(event -> {

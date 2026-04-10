@@ -281,13 +281,32 @@ public class MenuCongesController {
             return;
         }
         if (choice.get().equals(approve)) {
+            long empId = request.getEmployee().getId();
+            long duration = request.calculateDuration();
+            LocalDate hire = request.getEmployee().getHireDate();
+            if (hire == null) {
+                hire = employeeDao.findById(empId).map(Employee::getHireDate).orElse(null);
+            }
+            if (hire != null) {
+                leaveBalanceDao.syncAccrualForEmployeeAllYears(empId, hire);
+            }
+            if (duration > 0) {
+                double available = leaveBalanceDao.getTotalAvailableDays(empId);
+                if (duration > available + 1e-6) {
+                    ViewNavigator.showInformation("Leave balance",
+                            "Not enough leave days. Available (all years, carryover included): "
+                                    + String.format("%.2f", available)
+                                    + ". Requested: " + duration + ".");
+                    return;
+                }
+            }
             if (leaveRequestDao.updateStatus(request.getId(), LeaveRequestStatus.APPROVED, adminId, null)) {
-                long duration = request.calculateDuration();
                 if (duration > 0) {
                     leaveBalanceDao.applyApprovedLeaveDays(
-                            request.getEmployee().getId(),
+                            empId,
                             request.getStartDate().getYear(),
-                            duration
+                            duration,
+                            hire
                     );
                 }
                 recordHistory(request, "REQUEST_APPROVED", "Admin approved the leave request");
@@ -330,9 +349,19 @@ public class MenuCongesController {
     }
 
     private void openBalanceModal(Employee employee) {
+        LocalDate hire = employee.getHireDate();
+        if (hire == null) {
+            hire = employeeDao.findById(employee.getId()).map(Employee::getHireDate).orElse(null);
+        }
+        if (hire != null) {
+            leaveBalanceDao.syncAccrualForEmployeeAllYears(employee.getId(), hire);
+        }
         List<LeaveBalance> balances = leaveBalanceDao.findByEmployeeId(employee.getId());
         if (balances.isEmpty()) {
-            ViewNavigator.showInformation("Leave balance", "No leave balance found for this employee.");
+            ViewNavigator.showInformation("Leave balance",
+                    hire == null
+                            ? "No leave balance yet. Set the employee hire date to compute annual leave (30 days/year, 2.5 per month)."
+                            : "No leave balance found for this employee.");
             return;
         }
         try {

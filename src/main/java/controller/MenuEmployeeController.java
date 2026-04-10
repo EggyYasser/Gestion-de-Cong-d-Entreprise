@@ -25,10 +25,12 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import enums.EmployeeStatus;
 import model.Employee;
+import util.EmployeeExcelImporter;
 import util.ViewNavigator;
 
 import java.io.IOException;
@@ -56,6 +58,9 @@ public class MenuEmployeeController {
 
     @FXML
     private Button ajouterEmployeesButton;
+
+    @FXML
+    private Button uploadEmployeesButton;
 
     @FXML
     private Button congeesButton;
@@ -139,6 +144,7 @@ public class MenuEmployeeController {
             ViewNavigator.openModal(ajouterEmployeesButton, "/view/add-employee.fxml", "Add Employee");
             reloadFromDatabase();
         });
+        uploadEmployeesButton.setOnAction(event -> importEmployeesFromExcel());
         // Not in current scope: keep visible, but no popup.
         abandonnementlButton.setDisable(true);
         notificationButton.setOnAction(event -> {
@@ -155,6 +161,45 @@ public class MenuEmployeeController {
             currentPage++;
             applyView();
         });
+    }
+
+    private void importEmployeesFromExcel() {
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Import employees from Excel");
+        chooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Excel", "*.xlsx", "*.xls"));
+        var file = chooser.showOpenDialog(employeesListView.getScene().getWindow());
+        if (file == null) {
+            return;
+        }
+        try {
+            EmployeeExcelImporter.ImportResult result = EmployeeExcelImporter.importFromFile(
+                    file.toPath(),
+                    emp -> {
+                        employeeDao.insert(emp);
+                    });
+            StringBuilder msg = new StringBuilder();
+            msg.append("Imported ").append(result.successCount()).append(" employee(s).");
+            if (result.skippedRows() > 0) {
+                msg.append("\nSkipped ").append(result.skippedRows()).append(" empty row(s).");
+            }
+            if (!result.errors().isEmpty()) {
+                msg.append("\n\nIssues:\n");
+                int max = Math.min(15, result.errors().size());
+                for (int i = 0; i < max; i++) {
+                    msg.append("• ").append(result.errors().get(i)).append("\n");
+                }
+                if (result.errors().size() > max) {
+                    msg.append("… and ").append(result.errors().size() - max).append(" more.");
+                }
+            }
+            ViewNavigator.showInformation("Import Excel", msg.toString());
+            if (result.successCount() > 0) {
+                reloadFromDatabase();
+            }
+        } catch (IOException e) {
+            ViewNavigator.showInformation("Import Excel", "Could not read file: " + e.getMessage());
+        }
     }
 
     private void reloadFromDatabase() {

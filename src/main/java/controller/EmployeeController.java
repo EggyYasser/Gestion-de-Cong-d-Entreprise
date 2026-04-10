@@ -4,7 +4,6 @@ import com.gestionconges.Main;
 import dao.EmployeeDao;
 import dao.LeaveBalanceDao;
 import dao.LeaveHistoryDao;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,6 +22,7 @@ import model.LeaveBalance;
 import model.LeaveHistory;
 import model.Employee;
 import enums.EmployeeStatus;
+import util.DepartmentOptions;
 import util.ViewNavigator;
 
 import java.io.IOException;
@@ -162,9 +162,8 @@ public class EmployeeController {
         TextField emailField = new TextField(currentEmployee.getEmail());
         TextField phoneField = new TextField(currentEmployee.getPhone());
         TextField positionField = new TextField(currentEmployee.getPosition());
-        ComboBox<String> departmentCombo = new ComboBox<>(FXCollections.observableArrayList(
-                "Human Resources", "Finance", "IT", "Marketing"
-        ));
+        ComboBox<String> departmentCombo = new ComboBox<>(
+                DepartmentOptions.observableListWithOptionalExtra(currentEmployee.getDepartment()));
         if (currentEmployee.getDepartment() != null) {
             departmentCombo.getSelectionModel().select(currentEmployee.getDepartment());
         }
@@ -193,6 +192,10 @@ public class EmployeeController {
             ViewNavigator.showInformation("Employees", "First name, last name, and email are required.");
             return;
         }
+        if (departmentCombo.getSelectionModel().getSelectedItem() == null) {
+            ViewNavigator.showInformation("Employees", "Please select a department.");
+            return;
+        }
 
         currentEmployee.setFirstName(firstNameField.getText().trim());
         currentEmployee.setLastName(lastNameField.getText().trim());
@@ -203,6 +206,9 @@ public class EmployeeController {
         currentEmployee.setHireDate(hireDatePicker.getValue());
 
         if (employeeDao.update(currentEmployee)) {
+            if (currentEmployee.getHireDate() != null) {
+                leaveBalanceDao.syncAccrualForEmployeeAllYears(employeeId, currentEmployee.getHireDate());
+            }
             ViewNavigator.showInformation("Employees", "Employee updated.");
             if (onDataChanged != null) {
                 onDataChanged.run();
@@ -218,9 +224,15 @@ public class EmployeeController {
         if (currentEmployee == null) {
             return;
         }
+        if (currentEmployee.getHireDate() != null) {
+            leaveBalanceDao.syncAccrualForEmployeeAllYears(employeeId, currentEmployee.getHireDate());
+        }
         List<LeaveBalance> balances = leaveBalanceDao.findByEmployeeId(employeeId);
         if (balances.isEmpty()) {
-            ViewNavigator.showInformation("Leave balance", "No leave balance found for this employee.");
+            ViewNavigator.showInformation("Leave balance",
+                    currentEmployee.getHireDate() == null
+                            ? "No leave balance yet. Set the employee hire date to compute annual leave (30 days/year, 2.5 per month)."
+                            : "No leave balance found for this employee.");
             return;
         }
         try {
