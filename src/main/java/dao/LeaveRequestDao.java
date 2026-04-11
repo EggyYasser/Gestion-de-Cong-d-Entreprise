@@ -17,7 +17,6 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class LeaveRequestDao {
 
@@ -57,22 +56,6 @@ public class LeaveRequestDao {
             INNER JOIN leave_types lt ON lr.leave_type_id = lt.id
             LEFT JOIN admins a ON lr.processed_by = a.id
             """;
-
-    public Optional<LeaveRequest> findById(long id) {
-        final String sql = JOINED_SELECT + " WHERE lr.id = ?";
-        try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setLong(1, id);
-            try (ResultSet rs = statement.executeQuery()) {
-                if (rs.next()) {
-                    return Optional.of(mapJoinedRow(rs));
-                }
-            }
-        } catch (SQLException e) {
-            throw new IllegalStateException("Failed to load leave request " + id, e);
-        }
-        return Optional.empty();
-    }
 
     public List<LeaveRequest> findAll() {
         final String sql = JOINED_SELECT + " ORDER BY lr.request_date DESC, lr.id DESC";
@@ -143,46 +126,6 @@ public class LeaveRequestDao {
             throw new IllegalStateException("Failed to insert leave request", e);
         }
         throw new IllegalStateException("Insert succeeded but no generated key returned");
-    }
-
-    public boolean update(LeaveRequest request) {
-        if (request.getId() == null) {
-            return false;
-        }
-        final String sql = """
-                UPDATE leave_requests SET employee_id = ?, leave_type_id = ?, processed_by = ?, request_date = ?,
-                    start_date = ?, end_date = ?, reason = ?, status = ?, rejection_comment = ?
-                WHERE id = ?
-                """;
-        try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-            int i = 1;
-            statement.setLong(i++, request.getEmployee().getId());
-            statement.setLong(i++, request.getLeaveType().getId());
-            if (request.getProcessedBy() != null && request.getProcessedBy().getId() != null) {
-                statement.setLong(i++, request.getProcessedBy().getId());
-            } else {
-                statement.setNull(i++, java.sql.Types.BIGINT);
-            }
-            statement.setDate(i++, Date.valueOf(request.getRequestDate()));
-            statement.setDate(i++, Date.valueOf(request.getStartDate()));
-            statement.setDate(i++, Date.valueOf(request.getEndDate()));
-            if (request.getReason() == null || request.getReason().isBlank()) {
-                statement.setNull(i++, java.sql.Types.VARCHAR);
-            } else {
-                statement.setString(i++, request.getReason());
-            }
-            statement.setString(i++, request.getStatus().name());
-            if (request.getRejectionComment() == null) {
-                statement.setNull(i++, java.sql.Types.VARCHAR);
-            } else {
-                statement.setString(i++, request.getRejectionComment());
-            }
-            statement.setLong(i, request.getId());
-            return statement.executeUpdate() == 1;
-        } catch (SQLException e) {
-            throw new IllegalStateException("Failed to update leave request", e);
-        }
     }
 
     public boolean updateStatus(long requestId, LeaveRequestStatus status, Long processedByAdminId, String rejectionComment) {

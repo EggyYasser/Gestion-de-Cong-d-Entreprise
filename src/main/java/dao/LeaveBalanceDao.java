@@ -3,7 +3,6 @@ package dao;
 import database.DatabaseConnection;
 import model.Employee;
 import model.LeaveBalance;
-
 import util.LeaveAccrualCalculator;
 
 import java.sql.Connection;
@@ -16,45 +15,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class LeaveBalanceDao {
-
-    public Optional<LeaveBalance> findById(long id) {
-        final String sql = """
-                SELECT id, employee_id, year, earned_days, used_days, remaining_days
-                FROM leave_balances
-                WHERE id = ?
-                """;
-        try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setLong(1, id);
-            try (ResultSet rs = statement.executeQuery()) {
-                if (rs.next()) {
-                    return Optional.of(mapRow(rs));
-                }
-            }
-        } catch (SQLException e) {
-            throw new IllegalStateException("Failed to load leave balance " + id, e);
-        }
-        return Optional.empty();
-    }
-
-    public List<LeaveBalance> findAll() {
-        final String sql = """
-                SELECT id, employee_id, year, earned_days, used_days, remaining_days
-                FROM leave_balances
-                ORDER BY year DESC, employee_id ASC
-                """;
-        try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet rs = statement.executeQuery()) {
-            List<LeaveBalance> list = new ArrayList<>();
-            while (rs.next()) {
-                list.add(mapRow(rs));
-            }
-            return list;
-        } catch (SQLException e) {
-            throw new IllegalStateException("Failed to list leave balances", e);
-        }
-    }
 
     public List<LeaveBalance> findByEmployeeId(long employeeId) {
         final String sql = """
@@ -99,9 +59,6 @@ public class LeaveBalanceDao {
         return Optional.empty();
     }
 
-    /**
-     * Recomputes earned days (Algerian 2.5/month, max 30/year) and keeps existing used days.
-     */
     public void syncAccrualForEmployeeYear(long employeeId, int year, LocalDate hireDate) {
         if (hireDate == null) {
             return;
@@ -112,9 +69,6 @@ public class LeaveBalanceDao {
         saveManualBalance(employeeId, year, earned, used);
     }
 
-    /**
-     * Syncs every civil year from hire year through current year.
-     */
     public void syncAccrualForEmployeeAllYears(long employeeId, LocalDate hireDate) {
         if (hireDate == null) {
             return;
@@ -127,9 +81,6 @@ public class LeaveBalanceDao {
         recalculateRemainingForEmployee(employeeId);
     }
 
-    /**
-     * Total leave days still available: sum of earned across all years minus sum of used (unlimited carryover).
-     */
     public double getTotalAvailableDays(long employeeId) {
         final String sql = """
                 SELECT COALESCE(SUM(earned_days), 0) - COALESCE(SUM(used_days), 0) AS total
@@ -150,10 +101,6 @@ public class LeaveBalanceDao {
         return 0.0;
     }
 
-    /**
-     * Keeps {@code remaining_days = earned_days - used_days} per row (may be negative if that year's used
-     * includes days drawn from earlier years' carryover).
-     */
     public void recalculateRemainingForEmployee(long employeeId) {
         final String sql = """
                 UPDATE leave_balances
@@ -173,22 +120,6 @@ public class LeaveBalanceDao {
         return Math.round(v * 100.0) / 100.0;
     }
 
-    public long insert(LeaveBalance balance) {
-        throw new UnsupportedOperationException("Not implemented yet");
-    }
-
-    public boolean update(LeaveBalance balance) {
-        throw new UnsupportedOperationException("Not implemented yet");
-    }
-
-    public boolean delete(long id) {
-        throw new UnsupportedOperationException("Not implemented yet");
-    }
-
-    /**
-     * Adds approved leave days to {@code used_days} for {@code year}, using accrual based on {@code hireDate}
-     * (30 days max per year, 2.5 per month worked in that year).
-     */
     public void applyApprovedLeaveDays(long employeeId, int year, double approvedDays, LocalDate hireDate) {
         LocalDate asOf = LocalDate.now();
         double earned = hireDate == null
@@ -253,4 +184,3 @@ public class LeaveBalanceDao {
         return b;
     }
 }
-

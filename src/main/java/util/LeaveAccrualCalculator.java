@@ -4,10 +4,6 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.temporal.ChronoUnit;
 
-/**
- * Algerian-style annual leave accrual: 30 days per full year, 2.5 days per calendar month worked
- * (30 ÷ 12), capped at 30 days per civil year.
- */
 public final class LeaveAccrualCalculator {
 
     public static final double DAYS_PER_MONTH = 2.5;
@@ -16,10 +12,6 @@ public final class LeaveAccrualCalculator {
     private LeaveAccrualCalculator() {
     }
 
-    /**
-     * Earned entitlement for civil year {@code year}, from hire date through {@code asOfDate} (inclusive),
-     * counting each calendar month that overlaps the employment segment as one accrual month.
-     */
     public static double earnedDaysForYear(LocalDate hireDate, int year, LocalDate asOfDate) {
         if (hireDate == null || asOfDate == null) {
             return 0.0;

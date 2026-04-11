@@ -53,10 +53,8 @@ public class LeaveBalanceController {
         if (employee != null) {
             balances = leaveBalanceDao.findByEmployeeId(employee.getId());
             double total = leaveBalanceDao.getTotalAvailableDays(employee.getId());
-            if (totalSummaryLabel != null) {
-                totalSummaryLabel.setText("Total available (all years, carryover included): "
-                        + String.format("%.2f", total) + " days");
-            }
+            totalSummaryLabel.setText("Total available (all years, carryover included): "
+                    + String.format("%.2f", total) + " days");
         }
         balanceListView.setItems(FXCollections.observableArrayList(balances));
         balanceListView.setCellFactory(lv -> new javafx.scene.control.ListCell<>() {
@@ -116,8 +114,7 @@ public class LeaveBalanceController {
             leaveBalanceDao.saveManualBalance(employee.getId(), year, earned, used);
             leaveBalanceDao.recalculateRemainingForEmployee(employee.getId());
             refreshList();
-        } catch (NumberFormatException ex) {
-            // Keep UI simple: ignore invalid numeric input.
+        } catch (NumberFormatException ignored) {
         }
     }
 

@@ -21,23 +21,11 @@ import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
-/**
- * Reads employees from the first sheet of an Excel file.
- * <p>
- * Supports:
- * <ul>
- *   <li><b>Company “liste nominative” layout</b> (e.g. two header rows: NOM, PRENOM, FONCTION, DATE, LIEU, DATE
- *   then a sub-row with NAISSANCE / ENTREE), data starts two rows below the main header.</li>
- *   <li><b>Simple layout</b>: one header row with Nom/Prenom/Poste (or English equivalents).</li>
- * </ul>
- */
 public final class EmployeeExcelImporter {
 
     private static final String DEFAULT_DEPARTMENT = "Liste nominative";
     private static final DataFormatter DATA_FORMATTER = new DataFormatter();
-
     private static final DateTimeFormatter FRENCH_DATE_STRICT = DateTimeFormatter.ofPattern("d/M/uuuu")
             .withResolverStyle(ResolverStyle.STRICT);
 
@@ -48,8 +36,9 @@ public final class EmployeeExcelImporter {
     }
 
     public static ImportResult importFromFile(Path file, EmployeeInserter inserter) throws IOException {
-        Objects.requireNonNull(file, "file");
-        Objects.requireNonNull(inserter, "inserter");
+        if (file == null || inserter == null) {
+            throw new NullPointerException();
+        }
         if (!Files.isRegularFile(file)) {
             throw new IOException("Not a file: " + file);
         }
@@ -72,8 +61,8 @@ public final class EmployeeExcelImporter {
             }
 
             String departmentFallback = guessDepartmentFromSheetTop(sheet);
-
             int lastRow = sheet.getLastRowNum();
+
             for (int r = layout.firstDataRow; r <= lastRow; r++) {
                 Row row = sheet.getRow(r);
                 if (row == null) {
@@ -109,7 +98,6 @@ public final class EmployeeExcelImporter {
                 }
 
                 String department = FonctionDepartmentMapper.departmentForFonction(position, departmentFallback);
-
                 Employee employee = buildEmployeeWithoutEmail(
                         firstName.trim(),
                         lastName.trim(),
@@ -157,9 +145,6 @@ public final class EmployeeExcelImporter {
         return e;
     }
 
-    /**
-     * {@code prenom.nom@gmail.com}; if the same address already exists, tries {@code prenom.nom.2@gmail.com}, etc.
-     */
     private static String gmailAddress(String firstName, String lastName, int duplicateIndex) {
         String a = sanitizeLocalPart(firstName);
         String b = sanitizeLocalPart(lastName);
@@ -215,9 +200,6 @@ public final class EmployeeExcelImporter {
         }
     }
 
-    /**
-     * Finds header row + whether data starts on next row or after sub-header row (liste nominative).
-     */
     private static Layout detectLayout(Sheet sheet) {
         int lastScan = Math.min(sheet.getLastRowNum(), 40);
         for (int r = 0; r <= lastScan; r++) {
@@ -277,9 +259,6 @@ public final class EmployeeExcelImporter {
         return naissance && entree;
     }
 
-    /**
-     * Prefer column under main header "DATE" where sub-row says NAISSANCE (not lieu-only).
-     */
     private static int findNaissanceDateColumn(Row headerRow, Row subRow) {
         List<Integer> dateCols = findColumnsWithExactHeader(headerRow, "date");
         if (dateCols.isEmpty()) {
@@ -353,7 +332,6 @@ public final class EmployeeExcelImporter {
 
     private static boolean matchesFirstName(String norm) {
         return norm.equals("prenom")
-                || norm.equals("prénom")
                 || norm.equals("first name")
                 || norm.equals("firstname")
                 || norm.equals("given name");
@@ -367,9 +345,6 @@ public final class EmployeeExcelImporter {
                 || norm.equals("fonction");
     }
 
-    /**
-     * First rows often contain company name (e.g. "SARL …").
-     */
     private static String guessDepartmentFromSheetTop(Sheet sheet) {
         for (int r = 0; r <= Math.min(3, sheet.getLastRowNum()); r++) {
             Row row = sheet.getRow(r);

@@ -74,9 +74,6 @@ public class EmployeeController {
     @FXML
     private Button deleteButton;
 
-    /**
-     * Called by the host window after load, before {@code show()}.
-     */
     public void initForEmployee(long employeeId, Consumer<String> errorConsumer, Runnable onDataChanged) {
         this.employeeId = employeeId;
         this.onDataChanged = onDataChanged;

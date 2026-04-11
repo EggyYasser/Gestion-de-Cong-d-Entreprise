@@ -16,7 +16,6 @@ public class Employee {
     private String email;
     private String phone;
     private EmployeeStatus status;
-    private LeaveBalance leaveBalance;
 
     public Employee() {
     }
@@ -35,10 +34,6 @@ public class Employee {
         this.email = email;
         this.phone = phone;
         this.status = status;
-    }
-
-    public LeaveBalance viewLeaveBalance() {
-        return leaveBalance;
     }
 
     public Long getId() {
@@ -129,25 +124,17 @@ public class Employee {
         this.status = status;
     }
 
-    public LeaveBalance getLeaveBalance() {
-        return leaveBalance;
-    }
-
-    public void setLeaveBalance(LeaveBalance leaveBalance) {
-        this.leaveBalance = leaveBalance;
-    }
-
     @Override
     public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", employeeCode='" + employeeCode + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", department='" + department + '\'' +
-                ", position='" + position + '\'' +
-                ", email='" + email + '\'' +
-                ", status=" + status +
-                '}';
+        return "Employee{"
+                + "id=" + id
+                + ", employeeCode='" + employeeCode + '\''
+                + ", firstName='" + firstName + '\''
+                + ", lastName='" + lastName + '\''
+                + ", department='" + department + '\''
+                + ", position='" + position + '\''
+                + ", email='" + email + '\''
+                + ", status=" + status
+                + '}';
     }
 }
