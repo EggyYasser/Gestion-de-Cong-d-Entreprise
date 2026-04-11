@@ -9,6 +9,7 @@ import dao.LeaveRequestDao;
 import dao.LeaveTypeDao;
 import enums.LeaveRequestStatus;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -60,6 +61,7 @@ public class MenuCongesController {
     private final LeaveTypeDao leaveTypeDao = new LeaveTypeDao();
 
     private final List<LeaveRequest> masterList = new ArrayList<>();
+    private final ObservableList<LeaveRequest> congesDisplayedItems = FXCollections.observableArrayList();
     private LeaveRequestStatus statusFilter;
 
     @FXML
@@ -117,6 +119,7 @@ public class MenuCongesController {
         profileComboBox.getSelectionModel().selectFirst();
 
         setupCustomListView();
+        congesListView.setItems(congesDisplayedItems);
         reloadFromDatabase();
 
         searchTextField.textProperty().addListener((o, a, b) -> applyFilterAndSearch());
@@ -169,7 +172,7 @@ public class MenuCongesController {
                 .filter(r -> statusFilter == null || r.getStatus() == statusFilter)
                 .filter(r -> matchesSearch(r, q))
                 .toList();
-        congesListView.setItems(FXCollections.observableArrayList(base));
+        congesDisplayedItems.setAll(base);
         pageTitleText.setText("Gestion Des Conges (" + base.size() + ")");
     }
 
@@ -242,8 +245,10 @@ public class MenuCongesController {
             protected void updateItem(LeaveRequest item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
+                    setText(null);
                     setGraphic(null);
                 } else {
+                    setText(null);
                     Employee e = item.getEmployee();
                     LeaveType t = item.getLeaveType();
                     String emp = e == null ? "?" : e.getEmployeeCode() + " " + e.getFirstName() + " " + e.getLastName();
