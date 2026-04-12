@@ -1,17 +1,3 @@
--- =============================================================================
--- Leave Management System — schema + seed data
--- =============================================================================
--- Paste this entire file into a MySQL Workbench query tab and execute.
---
--- Matches this project:
---   Database: leave_management_system (see database.DatabaseConnection)
---   Admin login: AdminDao compares email/password as plain text — seed uses
---     email 'a' and password 'a' for quick local testing.
---
--- Optional improvements (not required for the current Java code):
---   • Use utf8mb4 on the database (included below) for full Unicode.
---   • For production, store hashed passwords (e.g. BCrypt) and change AdminDao.
--- =============================================================================
 
 CREATE DATABASE IF NOT EXISTS leave_management_system
   CHARACTER SET utf8mb4
@@ -113,9 +99,7 @@ CREATE TABLE leave_history (
       ON UPDATE CASCADE
 );
 
--- ---------------------------------------------------------------------------
--- Seed data (IDs assume empty tables: admin id 1, employees 1–2, types 1–3)
--- ---------------------------------------------------------------------------
+----------Values----------
 
 INSERT INTO admins (first_name, last_name, email, password)
 VALUES ('Admin', 'HR', 'a', 'a');

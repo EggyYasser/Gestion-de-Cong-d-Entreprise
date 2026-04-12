@@ -29,7 +29,7 @@ public class AdminDao {
                 }
             }
         } catch (SQLException e) {
-            throw new IllegalStateException("Failed to authenticate admin", e);
+            throw new IllegalStateException("Failed", e);
         }
         return Optional.empty();
     }
