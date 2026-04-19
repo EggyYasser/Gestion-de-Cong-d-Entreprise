@@ -5,11 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0318223a-3ffa-41c4-be7e-1bb0594b9408" name="Changes" comment="clean up">
+      <change afterPath="$PROJECT_DIR$/generated_letters/leave_letter_EMP001_REQ1_20260419_014937.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generated_letters/leave_letter_EMP001_REQ1_20260419_015937.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generated_letters/leave_letter_EMP1054_REQ3_20260419_014349.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generated_letters/leave_letter_EMP1054_REQ3_20260419_014844.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generated_letters/~$ave_letter_EMP001_REQ1_20260419_015937.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/util/LeaveLetterGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/leave-letter-template.docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/MenuCongesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/MenuCongesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/LeaveHistoryDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/LeaveHistoryDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/gestionconges/SessionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/gestionconges/SessionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuCongesController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuCongesController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuCongesController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuCongesController$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuCongesController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuCongesController$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuCongesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuCongesController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/AdminDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/AdminDao.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/dao/LeaveHistoryDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/LeaveHistoryDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/dao/LeaveRequestDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/LeaveRequestDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/dao/LeaveTypeDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/LeaveTypeDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +112,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;developement&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/yasse/Downloads/mysql-connector-j-9.5.0/mysql-connector-j-9.5.0.jar&quot;,
@@ -267,7 +281,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775930112769</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="clean up">
+      <option name="closed" value="true" />
+      <created>1776036160945</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1776036160945</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

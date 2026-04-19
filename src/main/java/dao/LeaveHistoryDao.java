@@ -11,8 +11,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class LeaveHistoryDao {
 
@@ -64,6 +66,30 @@ public class LeaveHistoryDao {
             throw new IllegalStateException("Failed to insert leave history", e);
         }
         return -1L;
+    }
+
+    public Optional<LocalDate> findLatestActionDateByRequestId(long requestId, String action) {
+        final String sql = """
+                SELECT action_date
+                FROM leave_history
+                WHERE leave_request_id = ? AND action = ?
+                ORDER BY action_date DESC, id DESC
+                LIMIT 1
+                """;
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, requestId);
+            statement.setString(2, action);
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    Date actionDate = rs.getDate("action_date");
+                    return Optional.ofNullable(actionDate != null ? actionDate.toLocalDate() : null);
+                }
+            }
+        } catch (SQLException e) {
+            throw new IllegalStateException("Failed to load leave history action date", e);
+        }
+        return Optional.empty();
     }
 
     private LeaveHistory mapRow(ResultSet rs) throws SQLException {

@@ -43,9 +43,11 @@ import model.LeaveBalance;
 import model.LeaveHistory;
 import model.LeaveRequest;
 import model.LeaveType;
+import util.LeaveLetterGenerator;
 import util.ViewNavigator;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +61,7 @@ public class MenuCongesController {
     private final LeaveBalanceDao leaveBalanceDao = new LeaveBalanceDao();
     private final EmployeeDao employeeDao = new EmployeeDao();
     private final LeaveTypeDao leaveTypeDao = new LeaveTypeDao();
+    private final LeaveLetterGenerator leaveLetterGenerator = new LeaveLetterGenerator();
 
     private final List<LeaveRequest> masterList = new ArrayList<>();
     private final ObservableList<LeaveRequest> congesDisplayedItems = FXCollections.observableArrayList();
@@ -152,11 +155,10 @@ public class MenuCongesController {
             reloadFromDatabase();
         });
 
-        // Not in current scope: keep visible, but no popup.
         abonnementsButton.setDisable(true);
         notificationButton.setOnAction(event -> {
-            long n = leaveRequestDao.findByStatus(LeaveRequestStatus.PENDING).size();
-            ViewNavigator.showInformation("Notifications", n + " leave request(s) pending.");
+            long count = leaveRequestDao.findByStatus(LeaveRequestStatus.PENDING).size();
+            ViewNavigator.showInformation("Notifications", count + " leave request(s) pending.");
         });
     }
 
@@ -167,26 +169,26 @@ public class MenuCongesController {
     }
 
     private void applyFilterAndSearch() {
-        String q = searchTextField.getText() == null ? "" : searchTextField.getText().trim().toLowerCase(Locale.ROOT);
-        List<LeaveRequest> base = masterList.stream()
-                .filter(r -> statusFilter == null || r.getStatus() == statusFilter)
-                .filter(r -> matchesSearch(r, q))
+        String query = searchTextField.getText() == null ? "" : searchTextField.getText().trim().toLowerCase(Locale.ROOT);
+        List<LeaveRequest> filtered = masterList.stream()
+                .filter(request -> statusFilter == null || request.getStatus() == statusFilter)
+                .filter(request -> matchesSearch(request, query))
                 .toList();
-        congesDisplayedItems.setAll(base);
-        pageTitleText.setText("Gestion Des Conges (" + base.size() + ")");
+        congesDisplayedItems.setAll(filtered);
+        pageTitleText.setText("Gestion Des Conges (" + filtered.size() + ")");
     }
 
-    private static boolean matchesSearch(LeaveRequest r, String q) {
-        if (q.isEmpty()) {
+    private static boolean matchesSearch(LeaveRequest request, String query) {
+        if (query.isEmpty()) {
             return true;
         }
-        Employee e = r.getEmployee();
-        LeaveType t = r.getLeaveType();
-        return (e != null && e.getFirstName() != null && e.getFirstName().toLowerCase(Locale.ROOT).contains(q))
-                || (e != null && e.getLastName() != null && e.getLastName().toLowerCase(Locale.ROOT).contains(q))
-                || (e != null && e.getEmployeeCode() != null && e.getEmployeeCode().toLowerCase(Locale.ROOT).contains(q))
-                || (t != null && t.getName() != null && t.getName().toLowerCase(Locale.ROOT).contains(q))
-                || (r.getStatus() != null && r.getStatus().name().toLowerCase(Locale.ROOT).contains(q));
+        Employee employee = request.getEmployee();
+        LeaveType leaveType = request.getLeaveType();
+        return (employee != null && employee.getFirstName() != null && employee.getFirstName().toLowerCase(Locale.ROOT).contains(query))
+                || (employee != null && employee.getLastName() != null && employee.getLastName().toLowerCase(Locale.ROOT).contains(query))
+                || (employee != null && employee.getEmployeeCode() != null && employee.getEmployeeCode().toLowerCase(Locale.ROOT).contains(query))
+                || (leaveType != null && leaveType.getName() != null && leaveType.getName().toLowerCase(Locale.ROOT).contains(query))
+                || (request.getStatus() != null && request.getStatus().name().toLowerCase(Locale.ROOT).contains(query));
     }
 
     private void setupCustomListView() {
@@ -195,6 +197,7 @@ public class MenuCongesController {
             private final Label label = new Label();
             private final Region spacer = new Region();
             private final Button actionBtn = new Button("Action");
+            private final Button generateLetterBtn = new Button("Generate Letter");
             private final Button modifyBtn = new Button("Modify");
             private final Button deleteBtn = new Button("Delete");
 
@@ -203,9 +206,10 @@ public class MenuCongesController {
                 HBox.setHgrow(spacer, Priority.ALWAYS);
                 root.setPadding(new Insets(5, 10, 5, 10));
                 actionBtn.setId("action-button");
+                generateLetterBtn.setId("action-button");
                 modifyBtn.setId("modify-button");
                 deleteBtn.setId("delete-button");
-                root.getChildren().addAll(label, spacer, actionBtn, modifyBtn, deleteBtn);
+                root.getChildren().addAll(label, spacer, actionBtn, generateLetterBtn, modifyBtn, deleteBtn);
 
                 deleteBtn.setOnAction(event -> {
                     LeaveRequest item = getItem();
@@ -233,6 +237,13 @@ public class MenuCongesController {
                     }
                 });
 
+                generateLetterBtn.setOnAction(event -> {
+                    LeaveRequest item = getItem();
+                    if (item != null) {
+                        handleGenerateLetter(item);
+                    }
+                });
+
                 modifyBtn.setOnAction(event -> {
                     LeaveRequest item = getItem();
                     if (item != null) {
@@ -247,17 +258,40 @@ public class MenuCongesController {
                 if (empty || item == null) {
                     setText(null);
                     setGraphic(null);
-                } else {
-                    setText(null);
-                    Employee e = item.getEmployee();
-                    LeaveType t = item.getLeaveType();
-                    String emp = e == null ? "?" : e.getEmployeeCode() + " " + e.getFirstName() + " " + e.getLastName();
-                    String typeName = t == null ? "?" : t.getName();
-                    label.setText("REQ" + item.getId() + " — " + emp + " — " + typeName + " — " + item.getStatus());
-                    setGraphic(root);
+                    return;
                 }
+
+                setText(null);
+                Employee employee = item.getEmployee();
+                LeaveType leaveType = item.getLeaveType();
+                String employeeLabel = employee == null
+                        ? "?"
+                        : employee.getEmployeeCode() + " - " + employee.getFirstName() + " " + employee.getLastName();
+                String typeLabel = leaveType == null ? "?" : leaveType.getName();
+                label.setText("REQ" + item.getId() + " - " + employeeLabel + " - " + typeLabel + " - " + item.getStatus());
+
+                boolean approved = item.getStatus() == LeaveRequestStatus.APPROVED;
+                generateLetterBtn.setManaged(approved);
+                generateLetterBtn.setVisible(approved);
+                setGraphic(root);
             }
         });
+    }
+
+    private void handleGenerateLetter(LeaveRequest request) {
+        if (request.getStatus() != LeaveRequestStatus.APPROVED) {
+            ViewNavigator.showInformation("Leave letter", "A letter can only be generated for approved requests.");
+            return;
+        }
+
+        LocalDate approvalDate = leaveHistoryDao
+                .findLatestActionDateByRequestId(request.getId(), "REQUEST_APPROVED")
+                .orElse(LocalDate.now());
+        try {
+            leaveLetterGenerator.generateApprovedLeaveLetter(request, approvalDate);
+        } catch (IllegalStateException exception) {
+            ViewNavigator.showInformation("Leave letter", exception.getMessage());
+        }
     }
 
     private void handleAction(LeaveRequest request) {
@@ -266,7 +300,7 @@ public class MenuCongesController {
             return;
         }
         Long adminId = SessionContext.getCurrentAdmin()
-                .map(a -> a.getId())
+                .map(admin -> admin.getId())
                 .orElse(null);
         if (adminId == null) {
             ViewNavigator.showInformation("Session", "No logged-in admin. Please log in again.");
@@ -285,33 +319,36 @@ public class MenuCongesController {
         if (choice.isEmpty() || choice.get().equals(cancel)) {
             return;
         }
+
         if (choice.get().equals(approve)) {
-            long empId = request.getEmployee().getId();
+            long employeeId = request.getEmployee().getId();
             long duration = request.calculateDuration();
-            LocalDate hire = request.getEmployee().getHireDate();
-            if (hire == null) {
-                hire = employeeDao.findById(empId).map(Employee::getHireDate).orElse(null);
+            LocalDate hireDate = request.getEmployee().getHireDate();
+            if (hireDate == null) {
+                hireDate = employeeDao.findById(employeeId).map(Employee::getHireDate).orElse(null);
             }
-            if (hire != null) {
-                leaveBalanceDao.syncAccrualForEmployeeAllYears(empId, hire);
+            if (hireDate != null) {
+                leaveBalanceDao.syncAccrualForEmployeeAllYears(employeeId, hireDate);
             }
             if (duration > 0) {
-                double available = leaveBalanceDao.getTotalAvailableDays(empId);
+                double available = leaveBalanceDao.getTotalAvailableDays(employeeId);
                 if (duration > available + 1e-6) {
-                    ViewNavigator.showInformation("Leave balance",
+                    ViewNavigator.showInformation(
+                            "Leave balance",
                             "Not enough leave days. Available (all years, carryover included): "
                                     + String.format("%.2f", available)
-                                    + ". Requested: " + duration + ".");
+                                    + ". Requested: " + duration + "."
+                    );
                     return;
                 }
             }
             if (leaveRequestDao.updateStatus(request.getId(), LeaveRequestStatus.APPROVED, adminId, null)) {
                 if (duration > 0) {
                     leaveBalanceDao.applyApprovedLeaveDays(
-                            empId,
+                            employeeId,
                             request.getStartDate().getYear(),
                             duration,
-                            hire
+                            hireDate
                     );
                 }
                 recordHistory(request, "REQUEST_APPROVED", "Admin approved the leave request");
@@ -319,14 +356,14 @@ public class MenuCongesController {
                 ViewNavigator.showInformation("Leave request", "Request approved.");
             }
         } else if (choice.get().equals(reject)) {
-            TextInputDialog commentDlg = new TextInputDialog();
-            commentDlg.setTitle("Reject request");
-            commentDlg.setHeaderText(null);
-            commentDlg.setContentText("Rejection comment (optional):");
-            Optional<String> comment = commentDlg.showAndWait();
-            String c = comment.map(String::trim).filter(s -> !s.isEmpty()).orElse("Rejected by admin");
-            if (leaveRequestDao.updateStatus(request.getId(), LeaveRequestStatus.REJECTED, adminId, c)) {
-                recordHistory(request, "REQUEST_REJECTED", c);
+            TextInputDialog commentDialog = new TextInputDialog();
+            commentDialog.setTitle("Reject request");
+            commentDialog.setHeaderText(null);
+            commentDialog.setContentText("Rejection comment (optional):");
+            Optional<String> comment = commentDialog.showAndWait();
+            String finalComment = comment.map(String::trim).filter(text -> !text.isEmpty()).orElse("Rejected by admin");
+            if (leaveRequestDao.updateStatus(request.getId(), LeaveRequestStatus.REJECTED, adminId, finalComment)) {
+                recordHistory(request, "REQUEST_REJECTED", finalComment);
                 reloadFromDatabase();
                 ViewNavigator.showInformation("Leave request", "Request rejected.");
             }
@@ -354,19 +391,21 @@ public class MenuCongesController {
     }
 
     private void openBalanceModal(Employee employee) {
-        LocalDate hire = employee.getHireDate();
-        if (hire == null) {
-            hire = employeeDao.findById(employee.getId()).map(Employee::getHireDate).orElse(null);
+        LocalDate hireDate = employee.getHireDate();
+        if (hireDate == null) {
+            hireDate = employeeDao.findById(employee.getId()).map(Employee::getHireDate).orElse(null);
         }
-        if (hire != null) {
-            leaveBalanceDao.syncAccrualForEmployeeAllYears(employee.getId(), hire);
+        if (hireDate != null) {
+            leaveBalanceDao.syncAccrualForEmployeeAllYears(employee.getId(), hireDate);
         }
         List<LeaveBalance> balances = leaveBalanceDao.findByEmployeeId(employee.getId());
         if (balances.isEmpty()) {
-            ViewNavigator.showInformation("Leave balance",
-                    hire == null
+            ViewNavigator.showInformation(
+                    "Leave balance",
+                    hireDate == null
                             ? "No leave balance yet. Set the employee hire date to compute annual leave (30 days/year, 2.5 per month)."
-                            : "No leave balance found for this employee.");
+                            : "No leave balance found for this employee."
+            );
             return;
         }
         try {
@@ -415,23 +454,23 @@ public class MenuCongesController {
         dialog.setHeaderText(null);
 
         ComboBox<Employee> employeeCombo = new ComboBox<>(FXCollections.observableArrayList(employeeDao.findAll()));
-        employeeCombo.setCellFactory(lv -> new ListCell<>() {
+        employeeCombo.setCellFactory(listView -> new ListCell<>() {
             @Override
             protected void updateItem(Employee item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.getEmployeeCode() + " — " + item.getFirstName() + " " + item.getLastName());
+                setText(empty || item == null ? null : item.getEmployeeCode() + " - " + item.getFirstName() + " " + item.getLastName());
             }
         });
         employeeCombo.setButtonCell(new ListCell<>() {
             @Override
             protected void updateItem(Employee item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.getEmployeeCode() + " — " + item.getFirstName() + " " + item.getLastName());
+                setText(empty || item == null ? null : item.getEmployeeCode() + " - " + item.getFirstName() + " " + item.getLastName());
             }
         });
 
         ComboBox<LeaveType> typeCombo = new ComboBox<>(FXCollections.observableArrayList(leaveTypeDao.findAll()));
-        typeCombo.setCellFactory(lv -> new ListCell<>() {
+        typeCombo.setCellFactory(listView -> new ListCell<>() {
             @Override
             protected void updateItem(LeaveType item, boolean empty) {
                 super.updateItem(item, empty);
@@ -468,11 +507,11 @@ public class MenuCongesController {
             return;
         }
 
-        Employee emp = employeeCombo.getSelectionModel().getSelectedItem();
-        LeaveType type = typeCombo.getSelectionModel().getSelectedItem();
+        Employee employee = employeeCombo.getSelectionModel().getSelectedItem();
+        LeaveType leaveType = typeCombo.getSelectionModel().getSelectedItem();
         LocalDate start = startPicker.getValue();
         LocalDate end = endPicker.getValue();
-        if (emp == null || type == null || start == null || end == null) {
+        if (employee == null || leaveType == null || start == null || end == null) {
             ViewNavigator.showInformation("Leave request", "Please fill all required fields.");
             return;
         }
@@ -481,24 +520,24 @@ public class MenuCongesController {
             return;
         }
 
-        LeaveRequest req = new LeaveRequest();
-        req.setEmployee(emp);
-        req.setLeaveType(type);
-        req.setRequestDate(LocalDate.now());
-        req.setStartDate(start);
-        req.setEndDate(end);
+        LeaveRequest request = new LeaveRequest();
+        request.setEmployee(employee);
+        request.setLeaveType(leaveType);
+        request.setRequestDate(LocalDate.now());
+        request.setStartDate(start);
+        request.setEndDate(end);
         String reason = reasonArea.getText() == null ? "" : reasonArea.getText().trim();
-        req.setReason(reason.isEmpty() ? null : reason);
-        req.setStatus(LeaveRequestStatus.PENDING);
-        req.setProcessedBy(null);
-        req.setRejectionComment(null);
+        request.setReason(reason.isEmpty() ? null : reason);
+        request.setStatus(LeaveRequestStatus.PENDING);
+        request.setProcessedBy(null);
+        request.setRejectionComment(null);
 
-        long newId = leaveRequestDao.insert(req);
+        long newId = leaveRequestDao.insert(request);
         LeaveHistory history = new LeaveHistory();
-        history.setEmployee(emp);
-        LeaveRequest ref = new LeaveRequest();
-        ref.setId(newId);
-        history.setLeaveRequest(ref);
+        history.setEmployee(employee);
+        LeaveRequest reference = new LeaveRequest();
+        reference.setId(newId);
+        history.setLeaveRequest(reference);
         history.setAction("REQUEST_CREATED");
         history.setActionDate(LocalDate.now());
         history.setNote("Leave request created from leave page fallback dialog");
@@ -511,13 +550,14 @@ public class MenuCongesController {
             ViewNavigator.showInformation("Modify", "Only pending requests can be edited.");
             return;
         }
+
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Modify leave request");
         dialog.setHeaderText(null);
 
         ComboBox<LeaveType> typeCombo = new ComboBox<>(FXCollections.observableArrayList(leaveTypeDao.findAll()));
         typeCombo.getSelectionModel().select(request.getLeaveType());
-        typeCombo.setCellFactory(lv -> new ListCell<>() {
+        typeCombo.setCellFactory(listView -> new ListCell<>() {
             @Override
             protected void updateItem(LeaveType item, boolean empty) {
                 super.updateItem(item, empty);
@@ -534,9 +574,9 @@ public class MenuCongesController {
 
         DatePicker start = new DatePicker(request.getStartDate());
         DatePicker end = new DatePicker(request.getEndDate());
-        TextArea reason = new TextArea(request.getReason() == null ? "" : request.getReason());
-        reason.setPrefRowCount(3);
-        reason.setWrapText(true);
+        TextArea reasonArea = new TextArea(request.getReason() == null ? "" : request.getReason());
+        reasonArea.setPrefRowCount(3);
+        reasonArea.setWrapText(true);
 
         GridPane grid = new GridPane();
         grid.setHgap(10);
@@ -544,7 +584,7 @@ public class MenuCongesController {
         grid.addRow(0, new Label("Leave type"), typeCombo);
         grid.addRow(1, new Label("Start"), start);
         grid.addRow(2, new Label("End"), end);
-        grid.addRow(3, new Label("Reason"), reason);
+        grid.addRow(3, new Label("Reason"), reasonArea);
         dialog.getDialogPane().setContent(grid);
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
@@ -552,19 +592,21 @@ public class MenuCongesController {
         if (result.isEmpty() || result.get() != ButtonType.OK) {
             return;
         }
+
         LeaveType selected = typeCombo.getSelectionModel().getSelectedItem();
-        LocalDate s = start.getValue();
-        LocalDate e = end.getValue();
-        if (selected == null || s == null || e == null) {
+        LocalDate startDate = start.getValue();
+        LocalDate endDate = end.getValue();
+        if (selected == null || startDate == null || endDate == null) {
             ViewNavigator.showInformation("Modify", "Please fill all fields.");
             return;
         }
-        if (e.isBefore(s)) {
+        if (endDate.isBefore(startDate)) {
             ViewNavigator.showInformation("Modify", "End date cannot be before start date.");
             return;
         }
-        String r = reason.getText() == null ? "" : reason.getText().trim();
-        if (leaveRequestDao.updatePendingDetails(request.getId(), selected.getId(), s, e, r.isEmpty() ? null : r)) {
+
+        String reason = reasonArea.getText() == null ? "" : reasonArea.getText().trim();
+        if (leaveRequestDao.updatePendingDetails(request.getId(), selected.getId(), startDate, endDate, reason.isEmpty() ? null : reason)) {
             recordHistory(request, "REQUEST_UPDATED", "Request details were updated");
             reloadFromDatabase();
             ViewNavigator.showInformation("Modify", "Request updated.");
@@ -574,14 +616,14 @@ public class MenuCongesController {
     }
 
     private void recordHistory(LeaveRequest request, String action, String note) {
-        LeaveHistory h = new LeaveHistory();
-        h.setEmployee(request.getEmployee());
-        LeaveRequest ref = new LeaveRequest();
-        ref.setId(request.getId());
-        h.setLeaveRequest(ref);
-        h.setAction(action);
-        h.setActionDate(LocalDate.now());
-        h.setNote(note);
-        leaveHistoryDao.insert(h);
+        LeaveHistory history = new LeaveHistory();
+        history.setEmployee(request.getEmployee());
+        LeaveRequest reference = new LeaveRequest();
+        reference.setId(request.getId());
+        history.setLeaveRequest(reference);
+        history.setAction(action);
+        history.setActionDate(LocalDate.now());
+        history.setNote(note);
+        leaveHistoryDao.insert(history);
     }
 }
