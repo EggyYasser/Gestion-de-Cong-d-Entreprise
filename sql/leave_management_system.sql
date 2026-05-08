@@ -52,6 +52,7 @@ CREATE TABLE leave_requests (
   start_date DATE NOT NULL,
   end_date DATE NOT NULL,
   reason TEXT,
+  attachment_path VARCHAR(255) NULL,
   status ENUM('PENDING', 'APPROVED', 'REJECTED') NOT NULL DEFAULT 'PENDING',
   rejection_comment TEXT,
   CONSTRAINT fk_leave_request_employee
@@ -110,44 +111,7 @@ VALUES
   ('Sick Leave', 'Leave for health reasons', 15),
   ('Unpaid Leave', 'Leave without salary', 10);
 
-INSERT INTO employees (
-  employee_code,
-  first_name,
-  last_name,
-  birth_date,
-  hire_date,
-  department,
-  position,
-  email,
-  phone,
-  status
-)
-VALUES
-  ('EMP001', 'Ahmed', 'Benkhelifa', '2000-05-12', '2024-09-01', 'IT', 'Developer', 'ahmed@company.com', '0555000001', 'ACTIVE'),
-  ('EMP002', 'Sara', 'Mekki', '1999-11-03', '2023-07-15', 'HR', 'Assistant', 'sara@company.com', '0555000002', 'ACTIVE');
 
-INSERT INTO leave_balances (employee_id, year, earned_days, used_days, remaining_days)
-VALUES
-  (1, 2026, 30, 5, 25),
-  (2, 2026, 30, 2, 28);
 
-INSERT INTO leave_requests (
-  employee_id,
-  leave_type_id,
-  processed_by,
-  request_date,
-  start_date,
-  end_date,
-  reason,
-  status,
-  rejection_comment
-)
-VALUES
-  (1, 1, 1, '2026-04-01', '2026-04-10', '2026-04-15', 'Family travel', 'APPROVED', NULL),
-  (2, 2, NULL, '2026-04-03', '2026-04-08', '2026-04-09', 'Medical checkup', 'PENDING', NULL);
 
-INSERT INTO leave_history (employee_id, leave_request_id, action, action_date, note)
-VALUES
-  (1, 1, 'REQUEST_CREATED', '2026-04-01', 'Employee created a leave request'),
-  (1, 1, 'REQUEST_APPROVED', '2026-04-02', 'Admin approved the leave request'),
-  (2, 2, 'REQUEST_CREATED', '2026-04-03', 'Employee created a sick leave request');
+

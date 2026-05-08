@@ -86,6 +86,24 @@
     -fx-cursor: hand;
 }
 
+#exportCsvButton {
+    -fx-background-color: #f8f9fc;
+    -fx-border-color: #d1d3e2;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-text-fill: #4e73df;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-padding: 8 14;
+    -fx-cursor: hand;
+}
+
+#exportCsvButton:hover {
+    -fx-background-color: #eaecf4;
+    -fx-border-color: #b7b9cc;
+}
+
 #filtersVBox {
     -fx-background-color: white;
     -fx-background-radius: 10;

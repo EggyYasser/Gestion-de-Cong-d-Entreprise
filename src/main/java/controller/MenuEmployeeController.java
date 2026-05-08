@@ -54,9 +54,6 @@ public class MenuEmployeeController {
     private int currentPage = 0;
 
     @FXML
-    private Button abandonnementlButton;
-
-    @FXML
     private Button ajouterEmployeesButton;
 
     @FXML
@@ -145,8 +142,6 @@ public class MenuEmployeeController {
             reloadFromDatabase();
         });
         uploadEmployeesButton.setOnAction(event -> importEmployeesFromExcel());
-        // Not in current scope: keep visible, but no popup.
-        abandonnementlButton.setDisable(true);
         notificationButton.setOnAction(event -> {
             long pending = leaveRequestDao.findByStatus(LeaveRequestStatus.PENDING).size();
             ViewNavigator.showInformation("Notifications", pending + " leave request(s) pending approval.");

@@ -25,7 +25,6 @@
                 <Button fx:id="dashboardButton" mnemonicParsing="false" styleClass="nav-button" text="Dashboard" />
                 <Button fx:id="congeesButton" mnemonicParsing="false" styleClass="nav-button" text="Congees" />
                 <Button fx:id="employeesButton" mnemonicParsing="false" styleClass="active-button" text="Employees" />
-                <Button fx:id="abandonnementlButton" mnemonicParsing="false" styleClass="nav-button" text="Abandonnement" />
 
                 <Region VBox.vgrow="ALWAYS" />
 

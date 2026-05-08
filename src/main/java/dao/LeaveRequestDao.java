@@ -10,15 +10,18 @@ import model.LeaveType;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LeaveRequestDao {
+    private static volatile boolean attachmentColumnEnsured = false;
 
     private static final String JOINED_SELECT = """
             SELECT
@@ -30,6 +33,7 @@ public class LeaveRequestDao {
               lr.start_date,
               lr.end_date,
               lr.reason,
+              lr.attachment_path,
               lr.status,
               lr.rejection_comment,
               e.id AS e_id,
@@ -58,13 +62,34 @@ public class LeaveRequestDao {
             """;
 
     public List<LeaveRequest> findAll() {
+        ensureAttachmentColumnExists();
         final String sql = JOINED_SELECT + " ORDER BY lr.request_date DESC, lr.id DESC";
         return queryList(sql, null);
     }
 
     public List<LeaveRequest> findByStatus(LeaveRequestStatus status) {
+        ensureAttachmentColumnExists();
         final String sql = JOINED_SELECT + " WHERE lr.status = ? ORDER BY lr.request_date DESC, lr.id DESC";
         return queryList(sql, status);
+    }
+
+    public List<LeaveRequest> findRecent(int limit) {
+        ensureAttachmentColumnExists();
+        int safeLimit = Math.max(1, limit);
+        final String sql = JOINED_SELECT + " ORDER BY lr.request_date DESC, lr.id DESC LIMIT ?";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, safeLimit);
+            try (ResultSet rs = statement.executeQuery()) {
+                List<LeaveRequest> list = new ArrayList<>();
+                while (rs.next()) {
+                    list.add(mapJoinedRow(rs));
+                }
+                return list;
+            }
+        } catch (SQLException exception) {
+            throw new IllegalStateException("Failed to list recent leave requests", exception);
+        }
     }
 
     private List<LeaveRequest> queryList(String sql, LeaveRequestStatus filterStatus) {
@@ -86,10 +111,11 @@ public class LeaveRequestDao {
     }
 
     public long insert(LeaveRequest request) {
+        ensureAttachmentColumnExists();
         final String sql = """
                 INSERT INTO leave_requests (employee_id, leave_type_id, processed_by, request_date, start_date, end_date,
-                    reason, status, rejection_comment)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    reason, attachment_path, status, rejection_comment)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """;
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -109,12 +135,17 @@ public class LeaveRequestDao {
             } else {
                 statement.setString(7, request.getReason());
             }
-            LeaveRequestStatus st = request.getStatus() != null ? request.getStatus() : LeaveRequestStatus.PENDING;
-            statement.setString(8, st.name());
-            if (request.getRejectionComment() == null) {
-                statement.setNull(9, java.sql.Types.VARCHAR);
+            if (request.getAttachmentPath() == null || request.getAttachmentPath().isBlank()) {
+                statement.setNull(8, java.sql.Types.VARCHAR);
             } else {
-                statement.setString(9, request.getRejectionComment());
+                statement.setString(8, request.getAttachmentPath());
+            }
+            LeaveRequestStatus st = request.getStatus() != null ? request.getStatus() : LeaveRequestStatus.PENDING;
+            statement.setString(9, st.name());
+            if (request.getRejectionComment() == null) {
+                statement.setNull(10, java.sql.Types.VARCHAR);
+            } else {
+                statement.setString(10, request.getRejectionComment());
             }
             statement.executeUpdate();
             try (ResultSet keys = statement.getGeneratedKeys()) {
@@ -182,6 +213,53 @@ public class LeaveRequestDao {
         }
     }
 
+    public long countByStatusInRequestMonth(LeaveRequestStatus status, YearMonth month) {
+        ensureAttachmentColumnExists();
+        final String sql = """
+                SELECT COUNT(*) AS c
+                FROM leave_requests
+                WHERE status = ?
+                  AND request_date >= ?
+                  AND request_date < ?
+                """;
+        LocalDate monthStart = month.atDay(1);
+        LocalDate nextMonthStart = month.plusMonths(1).atDay(1);
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, status.name());
+            statement.setDate(2, Date.valueOf(monthStart));
+            statement.setDate(3, Date.valueOf(nextMonthStart));
+            try (ResultSet rs = statement.executeQuery()) {
+                return rs.next() ? rs.getLong("c") : 0L;
+            }
+        } catch (SQLException exception) {
+            throw new IllegalStateException("Failed to count leave requests by month", exception);
+        }
+    }
+
+    public long countApprovedStartingInNextDays(int days) {
+        ensureAttachmentColumnExists();
+        final String sql = """
+                SELECT COUNT(*) AS c
+                FROM leave_requests
+                WHERE status = 'APPROVED'
+                  AND start_date >= ?
+                  AND start_date <= ?
+                """;
+        LocalDate today = LocalDate.now();
+        LocalDate limit = today.plusDays(Math.max(days, 0));
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setDate(1, Date.valueOf(today));
+            statement.setDate(2, Date.valueOf(limit));
+            try (ResultSet rs = statement.executeQuery()) {
+                return rs.next() ? rs.getLong("c") : 0L;
+            }
+        } catch (SQLException exception) {
+            throw new IllegalStateException("Failed to count upcoming approved leaves", exception);
+        }
+    }
+
     private static LeaveRequest mapJoinedRow(ResultSet rs) throws SQLException {
         Employee emp = new Employee();
         emp.setId(rs.getLong("e_id"));
@@ -227,9 +305,55 @@ public class LeaveRequestDao {
         Date ed = rs.getDate("end_date");
         lr.setEndDate(ed != null ? ed.toLocalDate() : null);
         lr.setReason(rs.getString("reason"));
+        lr.setAttachmentPath(rs.getString("attachment_path"));
         String st = rs.getString("status");
         lr.setStatus(st != null ? LeaveRequestStatus.valueOf(st) : LeaveRequestStatus.PENDING);
         lr.setRejectionComment(rs.getString("rejection_comment"));
         return lr;
+    }
+
+    private void ensureAttachmentColumnExists() {
+        if (attachmentColumnEnsured) {
+            return;
+        }
+        synchronized (LeaveRequestDao.class) {
+            if (attachmentColumnEnsured) {
+                return;
+            }
+            final String addColumnSql = "ALTER TABLE leave_requests ADD COLUMN attachment_path VARCHAR(255) NULL";
+            try (Connection connection = DatabaseConnection.getConnection()) {
+                if (!hasColumn(connection, "leave_requests", "attachment_path")) {
+                    try (PreparedStatement statement = connection.prepareStatement(addColumnSql)) {
+                        statement.executeUpdate();
+                    }
+                }
+                attachmentColumnEnsured = true;
+            } catch (SQLException exception) {
+                throw new IllegalStateException("Failed to verify leave request attachment column", exception);
+            }
+        }
+    }
+
+    private boolean hasColumn(Connection connection, String tableName, String columnName) throws SQLException {
+        DatabaseMetaData metaData = connection.getMetaData();
+        String catalog = connection.getCatalog();
+        try (ResultSet rs = metaData.getColumns(catalog, null, tableName, columnName)) {
+            if (rs.next()) {
+                return true;
+            }
+        }
+        try (ResultSet rs = metaData.getColumns(catalog, null, tableName.toUpperCase(), columnName.toUpperCase())) {
+            if (rs.next()) {
+                return true;
+            }
+        }
+        try (ResultSet rs = metaData.getColumns(null, null, tableName, columnName)) {
+            if (rs.next()) {
+                return true;
+            }
+        }
+        try (ResultSet rs = metaData.getColumns(null, null, tableName.toUpperCase(), columnName.toUpperCase())) {
+            return rs.next();
+        }
     }
 }

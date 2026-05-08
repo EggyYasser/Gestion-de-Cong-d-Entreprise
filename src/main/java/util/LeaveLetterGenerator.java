@@ -21,7 +21,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -38,15 +37,13 @@ public class LeaveLetterGenerator {
         if (request == null || request.getStatus() == null || !request.getStatus().name().equals("APPROVED")) {
             throw new IllegalArgumentException("Only approved leave requests can generate a letter.");
         }
-
-        Path outputDirectory = Paths.get("generated_letters").toAbsolutePath().normalize();
+        Path outputPath;
         try {
-            Files.createDirectories(outputDirectory);
+            outputPath = Files.createTempFile(buildFilePrefix(request), ".docx");
+            outputPath.toFile().deleteOnExit();
         } catch (IOException exception) {
-            throw new IllegalStateException("Could not create generated_letters directory", exception);
+            throw new IllegalStateException("Could not prepare temporary leave letter file", exception);
         }
-
-        Path outputPath = outputDirectory.resolve(buildFileName(request));
         Map<String, String> placeholders = buildPlaceholderMap(request, approvalDate);
 
         try (InputStream inputStream = Main.class.getResourceAsStream(TEMPLATE_PATH)) {
@@ -166,12 +163,12 @@ public class LeaveLetterGenerator {
         }
     }
 
-    private String buildFileName(LeaveRequest request) {
+    private String buildFilePrefix(LeaveRequest request) {
         String employeeCode = request.getEmployee() != null && request.getEmployee().getEmployeeCode() != null
                 ? request.getEmployee().getEmployeeCode().trim()
                 : "EMP";
         return "leave_letter_" + employeeCode + "_REQ" + request.getId() + "_"
-                + FILE_DATE_FORMAT.format(LocalDateTime.now()) + ".docx";
+                + FILE_DATE_FORMAT.format(LocalDateTime.now()) + "_";
     }
 
     private String formatReference(LeaveRequest request) {

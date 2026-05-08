@@ -53,11 +53,13 @@
     -fx-background-radius: 10;
     -fx-padding: 10 15;
     -fx-alignment: CENTER_LEFT;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
 }
 
-.list-item-pending  { -fx-background-color: #FFF4EC; }
-.list-item-approved { -fx-background-color: #EBFBF5; }
-.list-item-rejected { -fx-background-color: #FFF2F2; }
+.list-item-pending  { -fx-background-color: #FFF4EC; -fx-border-color: #F9D7BE; }
+.list-item-approved { -fx-background-color: #EAF9F2; -fx-border-color: #BDE8D3; }
+.list-item-rejected { -fx-background-color: #FDEEEE; -fx-border-color: #F7C7C7; }
 
 
 .list-label {
@@ -65,6 +67,86 @@
     -fx-font-weight: bold;
     -fx-text-fill: #2E3A59;
     -fx-padding: 0 0 0 10;
+}
+
+.recent-request-row {
+    -fx-background-color: #F8FAFD;
+    -fx-background-radius: 8;
+    -fx-border-color: #E6ECF5;
+    -fx-border-radius: 8;
+    -fx-padding: 8 10;
+    -fx-cursor: hand;
+}
+
+.recent-request-row:hover {
+    -fx-background-color: #EEF4FF;
+    -fx-border-color: #CADBFF;
+}
+
+.recent-request-title {
+    -fx-text-fill: #344054;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.recent-request-meta {
+    -fx-text-fill: #667085;
+    -fx-font-size: 11px;
+}
+
+.recent-filter-button {
+    -fx-background-color: #EEF2F7;
+    -fx-text-fill: #475467;
+    -fx-background-radius: 14;
+    -fx-padding: 4 10;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.recent-filter-active {
+    -fx-background-color: #DBEAFE;
+    -fx-text-fill: #1D4ED8;
+}
+
+.recent-request-status {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 4 8;
+    -fx-background-radius: 12;
+}
+
+.recent-status-approved {
+    -fx-text-fill: #137a52;
+    -fx-background-color: #dcfce7;
+}
+
+.recent-status-rejected {
+    -fx-text-fill: #b42318;
+    -fx-background-color: #fee4e2;
+}
+
+.recent-status-pending {
+    -fx-text-fill: #b54708;
+    -fx-background-color: #ffedd5;
+}
+
+.recent-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.recent-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.recent-scroll-pane .scroll-bar:vertical {
+    -fx-pref-width: 10;
+}
+
+.recent-scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #cbd5e1;
+    -fx-background-radius: 10;
 }
 
 #btnLogout {

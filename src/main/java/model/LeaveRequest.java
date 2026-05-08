@@ -11,6 +11,7 @@ public class LeaveRequest {
     private LocalDate startDate;
     private LocalDate endDate;
     private String reason;
+    private String attachmentPath;
     private LeaveRequestStatus status;
     private String rejectionComment;
     private Employee employee;
@@ -21,6 +22,7 @@ public class LeaveRequest {
     }
 
     public LeaveRequest(Long id, LocalDate requestDate, LocalDate startDate, LocalDate endDate, String reason,
+                        String attachmentPath,
                         LeaveRequestStatus status, String rejectionComment, Employee employee, LeaveType leaveType,
                         Admin processedBy) {
         this.id = id;
@@ -28,6 +30,7 @@ public class LeaveRequest {
         this.startDate = startDate;
         this.endDate = endDate;
         this.reason = reason;
+        this.attachmentPath = attachmentPath;
         this.status = status;
         this.rejectionComment = rejectionComment;
         this.employee = employee;
@@ -104,6 +107,14 @@ public class LeaveRequest {
         this.reason = reason;
     }
 
+    public String getAttachmentPath() {
+        return attachmentPath;
+    }
+
+    public void setAttachmentPath(String attachmentPath) {
+        this.attachmentPath = attachmentPath;
+    }
+
     public LeaveRequestStatus getStatus() {
         return status;
     }
@@ -152,6 +163,7 @@ public class LeaveRequest {
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", reason='" + reason + '\'' +
+                ", attachmentPath='" + attachmentPath + '\'' +
                 ", status=" + status +
                 ", rejectionComment='" + rejectionComment + '\'' +
                 '}';

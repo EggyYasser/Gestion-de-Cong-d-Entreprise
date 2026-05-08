@@ -36,6 +36,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Employee;
@@ -44,11 +45,17 @@ import model.LeaveHistory;
 import model.LeaveRequest;
 import model.LeaveType;
 import util.LeaveLetterGenerator;
+import util.LeaveAttachmentService;
+import util.LeaveRequestCsvExporter;
 import util.ViewNavigator;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -62,13 +69,14 @@ public class MenuCongesController {
     private final EmployeeDao employeeDao = new EmployeeDao();
     private final LeaveTypeDao leaveTypeDao = new LeaveTypeDao();
     private final LeaveLetterGenerator leaveLetterGenerator = new LeaveLetterGenerator();
+    private final LeaveAttachmentService leaveAttachmentService = new LeaveAttachmentService();
+    private final LeaveRequestCsvExporter leaveRequestCsvExporter = new LeaveRequestCsvExporter();
+    private static final DateTimeFormatter EXPORT_TS = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
 
     private final List<LeaveRequest> masterList = new ArrayList<>();
     private final ObservableList<LeaveRequest> congesDisplayedItems = FXCollections.observableArrayList();
     private LeaveRequestStatus statusFilter;
 
-    @FXML
-    private Button abonnementsButton;
     @FXML
     private Button addRequestButton;
     @FXML
@@ -89,6 +97,8 @@ public class MenuCongesController {
     private Button dashboardButton;
     @FXML
     private Button employeesButton;
+    @FXML
+    private Button exportCsvButton;
     @FXML
     private Button logoutButton;
     @FXML
@@ -154,12 +164,65 @@ public class MenuCongesController {
             openCreateRequestDialogFallback();
             reloadFromDatabase();
         });
+        exportCsvButton.setOnAction(event -> exportRequestsToCsv());
 
-        abonnementsButton.setDisable(true);
         notificationButton.setOnAction(event -> {
             long count = leaveRequestDao.findByStatus(LeaveRequestStatus.PENDING).size();
             ViewNavigator.showInformation("Notifications", count + " leave request(s) pending.");
         });
+    }
+
+    private void exportRequestsToCsv() {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Export leave requests");
+        dialog.setHeaderText("Choose the start and end dates for the export.");
+
+        DatePicker fromPicker = new DatePicker();
+        DatePicker toPicker = new DatePicker();
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.addRow(0, new Label("From"), fromPicker);
+        grid.addRow(1, new Label("To"), toPicker);
+        dialog.getDialogPane().setContent(grid);
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+        Optional<ButtonType> result = dialog.showAndWait();
+        if (result.isEmpty() || result.get() != ButtonType.OK) {
+            return;
+        }
+
+        LocalDate from = fromPicker.getValue();
+        LocalDate to = toPicker.getValue();
+        if (from == null || to == null || to.isBefore(from)) {
+            ViewNavigator.showInformation("Export CSV", "Please choose a valid date range.");
+            return;
+        }
+
+        List<LeaveRequest> inRange = congesDisplayedItems.stream()
+                .filter(r -> r.getStartDate() != null && !r.getStartDate().isBefore(from) && !r.getStartDate().isAfter(to))
+                .toList();
+        if (inRange.isEmpty()) {
+            ViewNavigator.showInformation("Export CSV", "No leave requests found in the selected period.");
+            return;
+        }
+
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Export leave requests");
+        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV files", "*.csv"));
+        chooser.setInitialFileName("leave_requests_" + EXPORT_TS.format(LocalDateTime.now()) + ".csv");
+        File output = chooser.showSaveDialog(mainBorderPane.getScene().getWindow());
+        if (output == null) {
+            return;
+        }
+        try {
+            Path outputPath = Paths.get(output.getAbsolutePath());
+            leaveRequestCsvExporter.export(inRange, outputPath);
+            ViewNavigator.showInformation("Export CSV", "Leave requests exported successfully.");
+        } catch (IllegalStateException exception) {
+            ViewNavigator.showInformation("Export CSV", exception.getMessage());
+        }
     }
 
     private void reloadFromDatabase() {
@@ -223,6 +286,7 @@ public class MenuCongesController {
                     Optional<ButtonType> result = confirm.showAndWait();
                     if (result.isPresent() && result.get() == ButtonType.OK) {
                         if (leaveRequestDao.delete(item.getId())) {
+                            leaveAttachmentService.deleteAttachmentQuietly(item.getAttachmentPath());
                             reloadFromDatabase();
                         } else {
                             ViewNavigator.showInformation("Leave requests", "Could not delete request.");
@@ -309,15 +373,28 @@ public class MenuCongesController {
 
         ButtonType approve = new ButtonType("Approve", ButtonBar.ButtonData.OK_DONE);
         ButtonType reject = new ButtonType("Reject", ButtonBar.ButtonData.NO);
+        ButtonType viewFile = new ButtonType("View File");
         ButtonType cancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Process request");
-        alert.setHeaderText(null);
-        alert.setContentText("Approve or reject this leave request?");
-        alert.getButtonTypes().setAll(approve, reject, cancel);
-        Optional<ButtonType> choice = alert.showAndWait();
-        if (choice.isEmpty() || choice.get().equals(cancel)) {
-            return;
+        Optional<ButtonType> choice;
+        while (true) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Process request");
+            alert.setHeaderText(null);
+            alert.setContentText("Approve or reject this leave request?");
+            alert.getButtonTypes().setAll(reject, approve, viewFile, cancel);
+            Button viewFileButton = (Button) alert.getDialogPane().lookupButton(viewFile);
+            viewFileButton.setDisable(!leaveAttachmentService.hasAttachment(request.getAttachmentPath()));
+            choice = alert.showAndWait();
+            if (choice.isEmpty() || choice.get().equals(cancel)) {
+                return;
+            }
+            if (choice.get().equals(viewFile)) {
+                if (!leaveAttachmentService.openAttachment(request.getAttachmentPath())) {
+                    ViewNavigator.showInformation("Attachment", "Attachment file not found or cannot be opened.");
+                }
+                continue;
+            }
+            break;
         }
 
         if (choice.get().equals(approve)) {
@@ -373,12 +450,17 @@ public class MenuCongesController {
     private void showReadOnlyActions(LeaveRequest request) {
         ButtonType viewBalance = new ButtonType("View Balance");
         ButtonType viewHistory = new ButtonType("View History");
+        ButtonType viewFile = new ButtonType("View File");
         ButtonType close = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
         Alert info = new Alert(Alert.AlertType.INFORMATION);
         info.setTitle("Leave request");
         info.setHeaderText(null);
         info.setContentText("This request is " + request.getStatus() + ".");
-        info.getButtonTypes().setAll(viewBalance, viewHistory, close);
+        info.getButtonTypes().setAll(viewBalance, viewHistory, viewFile, close);
+        if (!leaveAttachmentService.hasAttachment(request.getAttachmentPath())) {
+            Button viewFileButton = (Button) info.getDialogPane().lookupButton(viewFile);
+            viewFileButton.setDisable(true);
+        }
         Optional<ButtonType> choice = info.showAndWait();
         if (choice.isEmpty()) {
             return;
@@ -387,6 +469,10 @@ public class MenuCongesController {
             openBalanceModal(request.getEmployee());
         } else if (choice.get().equals(viewHistory)) {
             openHistoryModal(request.getEmployee());
+        } else if (choice.get().equals(viewFile)) {
+            if (!leaveAttachmentService.openAttachment(request.getAttachmentPath())) {
+                ViewNavigator.showInformation("Attachment", "Attachment file not found or cannot be opened.");
+            }
         }
     }
 
@@ -490,6 +576,29 @@ public class MenuCongesController {
         TextArea reasonArea = new TextArea();
         reasonArea.setPrefRowCount(3);
         reasonArea.setWrapText(true);
+        Label attachmentLabel = new Label("No file selected");
+        Button uploadButton = new Button("Upload File");
+        final File[] selectedAttachment = new File[1];
+        uploadButton.setOnAction(event -> {
+            FileChooser chooser = new FileChooser();
+            chooser.setTitle("Select attachment");
+            chooser.getExtensionFilters().add(
+                    new FileChooser.ExtensionFilter("Supported files", "*.pdf", "*.png", "*.jpg", "*.jpeg")
+            );
+            File selected = chooser.showOpenDialog(mainBorderPane.getScene().getWindow());
+            if (selected == null) {
+                return;
+            }
+            try {
+                leaveAttachmentService.validateFile(selected);
+                selectedAttachment[0] = selected;
+                attachmentLabel.setText(selected.getName());
+            } catch (IllegalArgumentException exception) {
+                ViewNavigator.showInformation("Attachment", exception.getMessage());
+            }
+        });
+        HBox attachmentBox = new HBox(10, uploadButton, attachmentLabel);
+        attachmentBox.setAlignment(Pos.CENTER_LEFT);
 
         GridPane grid = new GridPane();
         grid.setHgap(10);
@@ -499,6 +608,7 @@ public class MenuCongesController {
         grid.addRow(2, new Label("Start date"), startPicker);
         grid.addRow(3, new Label("End date"), endPicker);
         grid.addRow(4, new Label("Reason"), reasonArea);
+        grid.addRow(5, new Label("Attachment"), attachmentBox);
         dialog.getDialogPane().setContent(grid);
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
@@ -531,6 +641,14 @@ public class MenuCongesController {
         request.setStatus(LeaveRequestStatus.PENDING);
         request.setProcessedBy(null);
         request.setRejectionComment(null);
+        if (selectedAttachment[0] != null) {
+            try {
+                request.setAttachmentPath(leaveAttachmentService.storeFile(selectedAttachment[0]));
+            } catch (IllegalStateException exception) {
+                ViewNavigator.showInformation("Attachment", exception.getMessage());
+                return;
+            }
+        }
 
         long newId = leaveRequestDao.insert(request);
         LeaveHistory history = new LeaveHistory();
