@@ -57,3 +57,19 @@
     -fx-background-radius: 5;
     -fx-cursor: hand;
 }
+
+.icon-button:hover {
+    -fx-background-color: #f4f8ff;
+    -fx-border-color: #4f8cff;
+
+    -fx-effect: dropshadow(gaussian, rgba(79,140,255,0.25), 18, 0.3, 0, 4);
+
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.icon-button:pressed {
+    -fx-background-color: #e6efff;
+    -fx-scale-x: 0.96;
+    -fx-scale-y: 0.96;
+}

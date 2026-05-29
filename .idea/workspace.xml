@@ -4,43 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0318223a-3ffa-41c4-be7e-1bb0594b9408" name="Changes" comment="Added Leave Letter">
-      <change afterPath="$PROJECT_DIR$/generated_letters/leave_letter_EMP0006_REQ4_20260419_020431.docx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/generated_letters/leave_letter_EMP0006_REQ4_20260419_020453.docx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/generated_letters/leave_letter_EMP001_REQ1_20260419_014937.docx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/generated_letters/leave_letter_EMP001_REQ1_20260419_015937.docx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/generated_letters/leave_letter_EMP1054_REQ3_20260419_014349.docx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/generated_letters/leave_letter_EMP1054_REQ3_20260419_014844.docx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/util/LeaveAttachmentService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/util/LeaveRequestCsvExporter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/util/PasswordSecurity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/leave_documents/leave_doc_20260508_210729_24592887152600.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/leave_documents/leave_doc_20260508_211143_24847560563000.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/leave_documents/leave_doc_20260508_211255_24919068212000.png" afterDir="false" />
+    <list default="true" id="0318223a-3ffa-41c4-be7e-1bb0594b9408" name="Changes" comment="Biggest Commit Ever">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql/leave_management_system.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/leave_management_system.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/DashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/MenuCongesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/MenuCongesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/MenuEmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/MenuEmployeeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/AdminDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/AdminDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/LeaveRequestDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/LeaveRequestDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/LeaveRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/LeaveRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/LeaveLetterGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/LeaveLetterGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/css/dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/dashboard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/css/employee.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/employee.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/css/menu-conges.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/menu-conges.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/css/menu-employees.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/menu-employees.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/view/dashboard-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/dashboard-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/leave-history-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/leave-history-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/view/menu-conges-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/menu-conges-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/view/menu-emlpoyees-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/menu-emlpoyees-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/DashboardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/DashboardController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuCongesController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuCongesController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuCongesController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuCongesController$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuCongesController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuCongesController$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuCongesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuCongesController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/css/dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/css/dashboard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/dao/AdminDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/AdminDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/dao/LeaveRequestDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/LeaveRequestDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/LeaveRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/LeaveRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/dashboard-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/dashboard-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuEmployeeController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuEmployeeController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuEmployeeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuEmployeeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/css/menu-conges.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/css/menu-conges.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/view/menu-Conges-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/menu-Conges-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/view/menu-emlpoyees-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/menu-emlpoyees-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +110,7 @@
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/yasse/Downloads/mysql-connector-j-9.5.0/mysql-connector-j-9.5.0.jar&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/L3 INFO/S2/Gestion-de-Cong-d-Entreprise-main&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
@@ -314,7 +292,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776560942787</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Biggest Commit Ever">
+      <option name="closed" value="true" />
+      <created>1778276715388</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1778276715388</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -348,6 +334,7 @@
     <MESSAGE value="Improvement in logic and adding functionality" />
     <MESSAGE value="clean up" />
     <MESSAGE value="Added Leave Letter" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Leave Letter" />
+    <MESSAGE value="Biggest Commit Ever" />
+    <option name="LAST_COMMIT_MESSAGE" value="Biggest Commit Ever" />
   </component>
 </project>

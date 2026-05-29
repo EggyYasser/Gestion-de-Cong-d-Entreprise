@@ -16,6 +16,6 @@
     <ListView fx:id="historyListView" VBox.vgrow="ALWAYS" />
     <HBox alignment="CENTER_RIGHT">
         <Region HBox.hgrow="ALWAYS" />
-        <Button fx:id="closeButton" onAction="#onClose" styleClass="btn-close" text="Close" />
+        <Button fx:id="closeButton" onAction="#onClose" style="-fx-background-color: #0984E3; -fx-text-fill: WHITE;" styleClass="btn-close" text="Close" />
     </HBox>
 </VBox>

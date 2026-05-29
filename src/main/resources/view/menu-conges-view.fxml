@@ -49,7 +49,7 @@
                <children>
                   <TextField fx:id="searchTextField" promptText="Search..." HBox.hgrow="ALWAYS" />
                   <Region HBox.hgrow="ALWAYS" />
-                  <Button fx:id="notificationButton" mnemonicParsing="false" text="🔔" />
+                  <Button fx:id="notificationButton" mnemonicParsing="false" styleClass="icon-button" text="🔔" />
                   <ComboBox fx:id="profileComboBox" promptText="Profile" />
                </children>
             </HBox>
