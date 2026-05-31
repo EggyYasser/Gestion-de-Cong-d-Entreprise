@@ -16,13 +16,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="mainBorderPane" minHeight="700.0" minWidth="1100.0" prefHeight="700.0" prefWidth="1100.0" stylesheets="@../css/dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardController">
+<BorderPane fx:id="mainBorderPane" minHeight="700.0" minWidth="1400.0" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../css/dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardController">
     <left>
         <VBox fx:id="sidebarVBox" alignment="TOP_CENTER" prefWidth="200.0" spacing="10.0" styleClass="sidebar">
             <children>
                 <StackPane fx:id="logoIcon" prefHeight="93.0" prefWidth="199.0" styleClass="logo-icon" />
                 <Button fx:id="btnDashboard" maxWidth="Infinity" mnemonicParsing="false" styleClass="active-button" text="Dashboard" />
-                <Button fx:id="congesButton" maxWidth="Infinity" mnemonicParsing="false" styleClass="nav-button" text="Conges" />
+                <Button fx:id="congesButton" maxWidth="Infinity" mnemonicParsing="false" styleClass="nav-button" text="Leave Requests" />
                 <Button fx:id="btnEmployees" maxWidth="Infinity" mnemonicParsing="false" styleClass="nav-button" text="Employees" />
                 <Region VBox.vgrow="ALWAYS" />
                 <Button fx:id="btnSupport" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" styleClass="support-button" text="Support">
@@ -33,9 +33,9 @@
                             </image>
                         </ImageView>
                     </graphic>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
                 </Button>
                 <Button fx:id="btnLogout" maxWidth="Infinity" mnemonicParsing="false" prefHeight="44.0" prefWidth="146.0" text="               Logout" textAlignment="RIGHT">
                     <VBox.margin>
@@ -68,13 +68,13 @@
                                 <VBox spacing="5.0">
                                     <children>
                                         <Text fx:id="txtPageTitle" styleClass="page-title" text="Dashboard">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font></Text>
+                                            <font>
+                                                <Font size="15.0" />
+                                            </font></Text>
                                         <Text fx:id="txtWelcomeMsg" styleClass="page-subtitle" text="Welcome back! Track leave requests and approvals in real time.">
-                                 <font>
-                                    <Font name="Arial Unicode MS" size="15.0" />
-                                 </font></Text>
+                                            <font>
+                                                <Font name="Arial Unicode MS" size="15.0" />
+                                            </font></Text>
                                     </children>
                                 </VBox>
                                 <HBox spacing="20.0">
@@ -145,10 +145,13 @@
                                     <children>
                                         <VBox fx:id="cardRecentRequests" prefHeight="300.0" styleClass="content-card" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <Text styleClass="card-header" text="Recent Leave Requests" />
+                                                <Text styleClass="card-header" text="Recent Leave Requests">
+                                                    <font>
+                                                        <Font name="Arial Unicode MS" size="12.0" />
+                                                    </font></Text>
                                                 <HBox alignment="CENTER_LEFT" spacing="8.0">
                                                     <children>
-                                                        <Button fx:id="recentAllButton" mnemonicParsing="false" styleClass="recent-filter-button recent-filter-active" text="All" />
+                                                        <Button fx:id="recentAllButton" mnemonicParsing="false" styleClass="recent-filter-button" text="All" />
                                                         <Button fx:id="recentPendingButton" mnemonicParsing="false" styleClass="recent-filter-button" text="Pending" />
                                                         <Button fx:id="recentApprovedButton" mnemonicParsing="false" styleClass="recent-filter-button" text="Approved" />
                                                         <Button fx:id="recentRejectedButton" mnemonicParsing="false" styleClass="recent-filter-button" text="Rejected" />

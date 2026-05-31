@@ -24,10 +24,18 @@ public final class ViewNavigator {
 
     public static void switchScene(Node sourceNode, String fxmlPath, String title) {
         Parent root = loadView(fxmlPath);
+
         Stage stage = (Stage) sourceNode.getScene().getWindow();
-        stage.setScene(new Scene(root));
+
+        double width = stage.getScene().getWidth();
+        double height = stage.getScene().getHeight();
+        boolean maximized = stage.isMaximized();
+
+        Scene newScene = new Scene(root, width, height);
+
+        stage.setScene(newScene);
         stage.setTitle(title);
-        stage.centerOnScreen();
+        stage.setMaximized(maximized);
     }
 
     public static void openModal(Node sourceNode, String fxmlPath, String title) {
