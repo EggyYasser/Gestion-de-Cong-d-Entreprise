@@ -15,14 +15,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="mainBorderPane" minHeight="700.0" minWidth="1100.0" prefHeight="700.0" prefWidth="1100.0" stylesheets="@../css/menu-conges.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuCongesController">
+<BorderPane fx:id="mainBorderPane" minHeight="700.0" minWidth="1400.0" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../css/menu-conges.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuCongesController">
    <left>
       <VBox fx:id="sidebarVBox" alignment="TOP_CENTER" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
             <StackPane fx:id="logoIcon" prefHeight="80.0" prefWidth="182.0" styleClass="logo-icon" />
 
             <Button fx:id="dashboardButton" mnemonicParsing="false" styleClass="nav-button" text="Dashboard" />
-            <Button fx:id="congeesButton" mnemonicParsing="false" styleClass="active-button" text="Congees" />
+            <Button fx:id="congeesButton" mnemonicParsing="false" styleClass="active-button" text="Leave Requests" />
             <Button fx:id="employeesButton" mnemonicParsing="false" styleClass="nav-button" text="Employees" />
 
             <Region VBox.vgrow="ALWAYS" />
@@ -59,7 +59,7 @@
                   <Text fx:id="pageTitleText" text="Gestion Des Conges" />
                   <Region HBox.hgrow="ALWAYS" />
                   <Button fx:id="exportCsvButton" mnemonicParsing="false" text="Export CSV" />
-                  <Button fx:id="addRequestButton" mnemonicParsing="false" text="Ajouter une Demande +" />
+                  <Button fx:id="addRequestButton" mnemonicParsing="false" text="Add Leave Request +" />
                </children>
                <padding><Insets left="20.0" right="20.0" /></padding>
                <VBox.margin>

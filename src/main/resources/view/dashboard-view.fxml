@@ -16,13 +16,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="mainBorderPane" minHeight="700.0" minWidth="1100.0" prefHeight="700.0" prefWidth="1100.0" stylesheets="@../css/dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardController">
+<BorderPane fx:id="mainBorderPane" minHeight="700.0" minWidth="1400.0" prefHeight="700.0" prefWidth="1400.0" stylesheets="@../css/dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardController">
     <left>
         <VBox fx:id="sidebarVBox" alignment="TOP_CENTER" prefWidth="200.0" spacing="10.0" styleClass="sidebar">
             <children>
                 <StackPane fx:id="logoIcon" prefHeight="93.0" prefWidth="199.0" styleClass="logo-icon" />
                 <Button fx:id="btnDashboard" maxWidth="Infinity" mnemonicParsing="false" styleClass="active-button" text="Dashboard" />
-                <Button fx:id="congesButton" maxWidth="Infinity" mnemonicParsing="false" styleClass="nav-button" text="Conges" />
+                <Button fx:id="congesButton" maxWidth="Infinity" mnemonicParsing="false" styleClass="nav-button" text="Leave Requests" />
                 <Button fx:id="btnEmployees" maxWidth="Infinity" mnemonicParsing="false" styleClass="nav-button" text="Employees" />
                 <Region VBox.vgrow="ALWAYS" />
                 <Button fx:id="btnSupport" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" styleClass="support-button" text="Support">

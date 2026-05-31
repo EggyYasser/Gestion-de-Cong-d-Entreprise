@@ -5,20 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0318223a-3ffa-41c4-be7e-1bb0594b9408" name="Changes" comment="Biggest Commit Ever">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_04_04_2026_23_57__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_04_04_2026_23_57__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_03_2026_21_03__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_03_2026_21_03__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_03_2026_01_40__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_03_2026_01_40__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/css/dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/dashboard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/css/employee.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/employee.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/css/menu-conges.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/menu-conges.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/css/menu-employees.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/menu-employees.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/view/dashboard-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/dashboard-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/leave-history-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/leave-history-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/login-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/view/menu-conges-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/menu-conges-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/view/menu-emlpoyees-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/menu-emlpoyees-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuEmployeeController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuEmployeeController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/MenuEmployeeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MenuEmployeeController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/css/menu-conges.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/css/menu-conges.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/menu-Conges-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/menu-Conges-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/menu-emlpoyees-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/menu-emlpoyees-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/support-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/support-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -16,7 +16,6 @@
         <AnchorPane id="headerPane">
             <children>
                 <Label id="titleLabel" layoutX="40.0" layoutY="30.0" text="Need some Help?" />
-                <Button id="closeButton" layoutX="400.0" layoutY="20.0" text="✕" />
             </children>
         </AnchorPane>
 
