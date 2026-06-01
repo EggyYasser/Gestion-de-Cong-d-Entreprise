@@ -238,7 +238,7 @@ public class MenuCongesController {
                 .filter(request -> matchesSearch(request, query))
                 .toList();
         congesDisplayedItems.setAll(filtered);
-        pageTitleText.setText("Gestion Des Conges (" + filtered.size() + ")");
+        pageTitleText.setText("Leave Requests (" + filtered.size() + ")");
     }
 
     private static boolean matchesSearch(LeaveRequest request, String query) {

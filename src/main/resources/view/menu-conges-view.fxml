@@ -56,7 +56,7 @@
 
             <HBox fx:id="headerHBox" alignment="CENTER_LEFT" prefHeight="80.0" spacing="10.0">
                <children>
-                  <Text fx:id="pageTitleText" text="Gestion Des Conges" />
+                  <Text fx:id="pageTitleText" text="Leave Requests" />
                   <Region HBox.hgrow="ALWAYS" />
                   <Button fx:id="exportCsvButton" mnemonicParsing="false" text="Export CSV" />
                   <Button fx:id="addRequestButton" mnemonicParsing="false" text="Add Leave Request +" />

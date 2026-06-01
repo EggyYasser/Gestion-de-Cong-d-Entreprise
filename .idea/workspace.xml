@@ -5,15 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0318223a-3ffa-41c4-be7e-1bb0594b9408" name="Changes" comment="fix language and some minor fixed still have resize problem">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_04_04_2026_23_57__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_04_04_2026_23_57__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gestionconges/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gestionconges/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/MenuCongesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/MenuCongesController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/util/ViewNavigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/ViewNavigator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/css/dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/css/dashboard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/css/employee.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/css/employee.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/css/menu-employees.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/css/menu-employees.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/dashboard-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/dashboard-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/login-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/menu-Conges-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/menu-Conges-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/menu-emlpoyees-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/menu-emlpoyees-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/support-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/support-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/menu-conges-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/menu-conges-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/menu-emlpoyees-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/menu-emlpoyees-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/util/ViewNavigator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/util/ViewNavigator.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,6 +62,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -102,7 +103,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "Dev",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/L3 INFO/S2/Gestion-de-Cong-d-Entreprise-main",
